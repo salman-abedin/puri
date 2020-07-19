@@ -49,6 +49,9 @@ sudo make uninstall
 [Bolt](https://github.com/salman-abedin/bolt)
 : The lightning fast workflow creator
 
+[Uniblocks](https://github.com/salman-abedin/uniblocks)
+: The status bar wrapper
+
 [Crystal](https://github.com/salman-abedin/crystal)
 : The transparent setup
 
@@ -60,9 +63,6 @@ sudo make uninstall
 
 [Devour](https://github.com/salman-abedin/devour)
 : Terminal swallowing
-
-[Uniblocks](https://github.com/salman-abedin/uniblocks)
-: The status bar wrapper
 
 ## Contact
 
