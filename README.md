@@ -1,3 +1,5 @@
+![](preview.gif)
+
 # puri: A minimal URL launcher for the command line interface
 
 puri is a TUI for selecting URLs and Its written in ~100 lines of pure POSIX shellscript.

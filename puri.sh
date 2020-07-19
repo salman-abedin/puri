@@ -69,20 +69,20 @@ mark() {
 
 goto() { printf "%b" "\033[${1};${2}H"; }
 
-setborder() {
-    goto 1 "$((COLUMNS / 2 - 10))"
-    for i in $(seq $COLUMNS); do printf "%s" "-"; done
-    goto "$((LINES - 2))" 0
-    for i in $(seq $COLUMNS); do printf "%s" "-"; done
-}
-
 setfooter() {
     goto "$((LINES - 1))" "$((COLUMNS / 2 - 10))"
     mark "$@"
 }
 
+setborder() {
+    goto 3 0
+    for i in $(seq $COLUMNS); do printf "%s" "-"; done
+    goto "$((LINES - 2))" 0
+    for i in $(seq $COLUMNS); do printf "%s" "-"; done
+}
+
 setheader() {
-    goto 0 "$((COLUMNS / 2 - 10))"
+    goto 2 "$((COLUMNS / 2 - 10))"
     mark "$@"
     printf "\n\n\n"
 }
@@ -96,7 +96,7 @@ setscreen() {
 main() {
     setscreen
     setborder
-    setheader TUP: tmux url picker
+    setheader PURI: POSIX URL Launcher
     setfooter j:Down k:Up l:launch h:Quit
     while :; do
         drawitems
