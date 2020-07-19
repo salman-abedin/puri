@@ -6,6 +6,7 @@
 
 URLS=/tmp/urls
 cursor=1
+ITEMS=0
 
 quit() {
     printf "%b" "\033[?25h\033[2J\033[H"
