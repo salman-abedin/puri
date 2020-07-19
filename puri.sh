@@ -53,7 +53,7 @@ goto() { printf "%b" "\033[${1};${2}H"; }
 
 setfooter() {
     goto "$((LINES - 1))" "$((COLUMNS / 2 - 10))"
-    mark "$@"
+    mark "j:Down k:Up l:launch h:Quit"
 }
 
 setborder() {
@@ -65,7 +65,7 @@ setborder() {
 
 setheader() {
     goto 2 "$((COLUMNS / 2 - 10))"
-    mark "$@"
+    mark "PURI: POSIX URL Launcher"
     printf "\n\n\n"
 }
 
@@ -88,8 +88,8 @@ main() {
     init "$@"
     setscreen
     setborder
-    setheader PURI: POSIX URL Launcher
-    setfooter j:Down k:Up l:launch h:Quit
+    setheader
+    setfooter
 
     trap 'quit' INT
 
