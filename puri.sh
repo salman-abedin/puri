@@ -35,16 +35,16 @@ getkey() {
 
 handleinput() {
     case "$(getkey)" in
-        ';')
+        'l')
             setsid falkon "$(sed "${cursor}q;d" "$URLS")" > /dev/null 2>&1
             # setsid "$BROWSER" "$(sed "${cursor}q;d" "$URLS")"
             # quit
             ;;
-        l)
+        j)
             [ "$cursor" -lt "$ITEMS" ] && cursor=$((cursor + 1))
             ;;
         k) [ "$cursor" -gt 1 ] && cursor=$((cursor - 1)) ;;
-        j) quit ;;
+        h) quit ;;
     esac
 }
 

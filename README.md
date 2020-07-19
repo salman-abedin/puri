@@ -4,6 +4,10 @@
 
 puri is a TUI for selecting URLs and Its written in ~100 lines of pure POSIX shellscript.
 
+## Dependencies
+
+-  grep, sed, uniq, tr, wc, cut, stty, head, read
+
 ## Installation
 
 ```sh
@@ -22,7 +26,7 @@ puri [FILE...]
 
 ```sh
 bind u run 'tmux capture-pane -C -J -S -1024 -E 1024 -p > /tmp/tb' \; \
-  new-window 'puri /tmp/tb && rm -f /tmp/tb'
+  new-window -n puri 'puri /tmp/tb && rm -f /tmp/tb'
 ```
 
 ## Uninstallation
