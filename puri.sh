@@ -35,14 +35,10 @@ getkey() {
 
 handleinput() {
     case "$(getkey)" in
-        l)
-            setsid "$BROWSER" "$(sed "${cursor}q;d" "$URLS")" > /dev/null 2>&1
-            ;;
-        j)
-            [ "$cursor" -lt "$ITEMS" ] && cursor=$((cursor + 1))
-            ;;
-        k) [ "$cursor" -gt 1 ] && cursor=$((cursor - 1)) ;;
         h) quit ;;
+        j) [ "$cursor" -lt "$ITEMS" ] && cursor=$((cursor + 1)) ;;
+        k) [ "$cursor" -gt 1 ] && cursor=$((cursor - 1)) ;;
+        l) setsid "$BROWSER" "$(sed "${cursor}q;d" "$URLS")" > /dev/null 2>&1 ;;
     esac
 }
 
