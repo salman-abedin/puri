@@ -2,7 +2,9 @@
 
 # puri: A minimal URL launcher for the command line interface
 
-puri is a TUI for searching and selecting URLs from a given file and Its written in ~100 lines of pure POSIX shellscript.
+puri is a TUI for searching and selecting URLs from a given file.
+
+puri is written in ~100 lines of pure POSIX shellscript.
 
 ## Dependencies
 
