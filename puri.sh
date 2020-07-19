@@ -1,6 +1,6 @@
 #!/bin/sh
 #
-# Launches a tui of urls to pick searched from a given file
+# Launches a TUI of URLs to pick searched from a given file
 # Usage: puri [FILE...]
 # Dependencies: grep, sed, uniq, tr, wc, cut, stty, head, read
 
