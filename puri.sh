@@ -1,14 +1,10 @@
 #!/bin/sh
 #
-# Launches a tui of urls from a given file
+# Launches a tui of urls to pick searched from a given file
 # Usage: puri [FILE...]
 # Dependencies: grep, sed, uniq, tr, wc, cut, stty, head, read
 
-if [ -p /dev/stdin ]; then
-    FILES=/dev/stdin
-else
-    FILES=$*
-fi
+FILES=$*
 URLS=/tmp/urls
 grep -Pzo '(http|https)://[a-zA-Z0-9+&@#/%?=~_|!:,.;-]*\n*[a-zA-Z0-9+&@#/%?=~_|!:,.;-]*' "$FILES" | tr -d '\n' | sed -e 's/http/\nhttp/g' -e 's/$/\n/' | sed '1d' | uniq > "$URLS"
 
