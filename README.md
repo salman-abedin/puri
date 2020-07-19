@@ -39,6 +39,9 @@ sudo make uninstall
 
 ## Similar Projects
 
+[urlscan](https://github.com/firecat53/urlscan)
+[urlview](https://github.com/sigpipe/urlview)
+
 ---
 
 ## Repos you might be interested in
