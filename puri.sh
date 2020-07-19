@@ -9,7 +9,7 @@ cursor=1
 ITEMS=0
 
 quit() {
-    printf "%b" "\033[?25h\033[2J\033[H"
+    printf "\033[?25h\033[2J\033[H"
     rm -f "$URLS"
     exit
 }
@@ -32,7 +32,7 @@ handleinput() {
 
 drawitems() {
     goto 5 0
-    i=
+    i=0
     while read -r url; do
         i=$((i + 1))
         if [ "$i" = "$cursor" ]; then
@@ -49,7 +49,7 @@ mark() {
     printf "\033[27m"
 }
 
-goto() { printf "%b" "\033[${1};${2}H"; }
+goto() { printf "\033[%s;%sH" "$1" "$2"; }
 
 setfooter() {
     goto "$((LINES - 1))" "$((COLUMNS / 2 - 10))"
