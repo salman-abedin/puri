@@ -6,13 +6,6 @@
 
 FILES=$*
 URLS=/tmp/urls
-grep -Pzo \
-    '(http|https)://[a-zA-Z0-9+&@#/%?=~_|!:,.;-]*\n*[a-zA-Z0-9+&@#/%?=~_|!:,.;-]*' "$FILES" |
-    tr -d '\n' |
-    sed -e 's/http/\nhttp/g' -e 's/$/\n/' |
-    sed '1d' | sort | uniq > "$URLS"
-
-ITEMS=$(wc -l "$URLS" | cut -d' ' -f1)
 
 SHOWCURSOR="\033[?25h"
 HIDECURSOR="\033[?25l"
@@ -87,7 +80,17 @@ setscreen() {
     COLUMNS=$(stty size | cut -d' ' -f2)
 }
 
+init() {
+    grep -Pzo \
+        '(http|https)://[a-zA-Z0-9+&@#/%?=~_|!:,.;-]*\n*[a-zA-Z0-9+&@#/%?=~_|!:,.;-]*' "$FILES" |
+        tr -d '\n' |
+        sed -e 's/http/\nhttp/g' -e 's/$/\n/' |
+        sed '1d' | sort | uniq > "$URLS"
+    ITEMS=$(wc -l "$URLS" | cut -d' ' -f1)
+}
+
 main() {
+    init
     setscreen
     setborder
     setheader PURI: POSIX URL Launcher
