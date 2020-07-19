@@ -4,17 +4,11 @@
 # Usage: puri [FILE...]
 # Dependencies: grep, sed, uniq, tr, wc, cut, stty, head, read
 
-FILES=$*
 URLS=/tmp/urls
-
-SHOWCURSOR="\033[?25h"
-HIDECURSOR="\033[?25l"
-CLEAR="\033[2J\033[H"
-
 cursor=1
 
 quit() {
-    printf "%b" "$SHOWCURSOR$CLEAR"
+    printf "%b" "\033[?25h\033[2J\033[H"
     rm -f "$URLS"
     exit
 }
@@ -75,14 +69,14 @@ setheader() {
 }
 
 setscreen() {
-    printf "%b" "$HIDECURSOR$CLEAR"
+    printf "%b" "\033[?25l\033[2J\033[H"
     LINES=$(stty size | cut -d' ' -f1)
     COLUMNS=$(stty size | cut -d' ' -f2)
 }
 
 init() {
     grep -Pzo \
-        '(http|https)://[a-zA-Z0-9+&@#/%?=~_|!:,.;-]*\n*[a-zA-Z0-9+&@#/%?=~_|!:,.;-]*' "$FILES" |
+        '(http|https)://[a-zA-Z0-9+&@#/%?=~_|!:,.;-]*\n*[a-zA-Z0-9+&@#/%?=~_|!:,.;-]*' "$@" |
         tr -d '\n' |
         sed -e 's/http/\nhttp/g' -e 's/$/\n/' |
         sed '1d' | sort | uniq > "$URLS"
@@ -90,7 +84,7 @@ init() {
 }
 
 main() {
-    init
+    init "$@"
     setscreen
     setborder
     setheader PURI: POSIX URL Launcher
@@ -103,4 +97,4 @@ main() {
         handleinput
     done
 }
-main
+main "$@"
