@@ -35,7 +35,7 @@ getkey() {
 
 handleinput() {
     case "$(getkey)" in
-        'l')
+        l)
             setsid "$BROWSER" "$(sed "${cursor}q;d" "$URLS")" > /dev/null 2>&1
             ;;
         j)
