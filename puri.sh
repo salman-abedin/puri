@@ -10,7 +10,6 @@ else
     FILES=$*
 fi
 URLS=/tmp/urls
-
 grep -Pzo '(http|https)://[a-zA-Z0-9+&@#/%?=~_|!:,.;-]*\n*[a-zA-Z0-9+&@#/%?=~_|!:,.;-]*' "$FILES" | tr -d '\n' | sed -e 's/http/\nhttp/g' -e 's/$/\n/' | sed '1d' | uniq > "$URLS"
 
 SHOWCURSOR="\033[?25h"
