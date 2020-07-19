@@ -36,9 +36,7 @@ getkey() {
 handleinput() {
     case "$(getkey)" in
         'l')
-            setsid falkon "$(sed "${cursor}q;d" "$URLS")" > /dev/null 2>&1
-            # setsid "$BROWSER" "$(sed "${cursor}q;d" "$URLS")"
-            # quit
+            setsid "$BROWSER" "$(sed "${cursor}q;d" "$URLS")"
             ;;
         j)
             [ "$cursor" -lt "$ITEMS" ] && cursor=$((cursor + 1))
