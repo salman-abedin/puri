@@ -65,7 +65,7 @@ setborder() {
 
 setheader() {
     goto 2 "$((COLUMNS / 2 - 10))"
-    mark "PURI: POSIX URL Launcher"
+    mark "PURI: Puny URL Launcher"
     printf "\n\n\n"
 }
 
