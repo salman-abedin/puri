@@ -8,7 +8,7 @@ puri is written in ~100 lines of pure POSIX shellscript.
 
 ## Dependencies
 
--  grep, sed, sort, uniq, tr, wc, cut, stty, head, read
+-  grep, sed, tr, wc, cut, stty, head, read
 
 ## Installation
 
@@ -21,7 +21,7 @@ git clone https://github.com/salman-abedin/puri.git && cd puri && sudo make inst
 ### Tmux
 
 ```tmux
-bind u run 'tmux capture-pane -C -J -S -1024 -E 1024 -p > /tmp/tb' \; \
+bind u run 'tmux capture-pane -p > /tmp/tb' \; \
   new-window -n puri 'puri /tmp/tb && rm -f /tmp/tb'
 ```
 
