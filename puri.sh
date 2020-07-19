@@ -36,7 +36,7 @@ getkey() {
 handleinput() {
     case "$(getkey)" in
         'l')
-            setsid "$BROWSER" "$(sed "${cursor}q;d" "$URLS")"
+            setsid "$BROWSER" "$(sed "${cursor}q;d" "$URLS")" > /dev/null 2>&1
             ;;
         j)
             [ "$cursor" -lt "$ITEMS" ] && cursor=$((cursor + 1))
