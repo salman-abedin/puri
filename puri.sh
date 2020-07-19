@@ -7,12 +7,12 @@
 FILES=$*
 URLS=/tmp/urls
 grep -Pzo '(http|https)://[a-zA-Z0-9+&@#/%?=~_|!:,.;-]*\n*[a-zA-Z0-9+&@#/%?=~_|!:,.;-]*' "$FILES" | tr -d '\n' | sed -e 's/http/\nhttp/g' -e 's/$/\n/' | sed '1d' | uniq > "$URLS"
+ITEMS=$(wc -l "$URLS" | cut -d' ' -f1)
 
 SHOWCURSOR="\033[?25h"
 HIDECURSOR="\033[?25l"
 CLEAR="\033[2J\033[H"
 
-ITEMS=$(wc -l "$URLS" | cut -d' ' -f1)
 cursor=1
 
 quit() {
@@ -87,6 +87,9 @@ main() {
     setborder
     setheader PURI: POSIX URL Launcher
     setfooter j:Down k:Up l:launch h:Quit
+
+    trap 'quit' INT
+
     while :; do
         drawitems
         handleinput

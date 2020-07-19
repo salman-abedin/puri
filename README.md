@@ -2,7 +2,7 @@
 
 # puri: A minimal URL launcher for the command line interface
 
-puri is a TUI for searching and selecting URLs from a given file.
+puri is a TUI for searching and launching URLs from a given file.
 
 puri is written in ~100 lines of pure POSIX shellscript.
 
@@ -18,12 +18,6 @@ git clone https://github.com/salman-abedin/puri.git && cd puri && sudo make inst
 
 ## Usage
 
-### Shell
-
-```sh
-puri [FILE...]
-```
-
 ### Tmux
 
 ```sh
@@ -31,11 +25,19 @@ bind u run 'tmux capture-pane -C -J -S -1024 -E 1024 -p > /tmp/tb' \; \
   new-window -n puri 'puri /tmp/tb && rm -f /tmp/tb'
 ```
 
+### Shell
+
+```sh
+puri [FILE...]
+```
+
 ## Uninstallation
 
 ```sh
 sudo make uninstall
 ```
+
+## Similar Projects
 
 ---
 
