@@ -32,12 +32,6 @@ macro index,pager o "<pipe-entry>tee /tmp/muttb<enter><shell-escape>puri /tmp/mu
 macro index,pager o "<pipe-message>tee /tmp/muttb<enter><shell-escape>puri /tmp/muttb<enter>"
 ```
 
-### Newsboat
-
-```
-external-url-viewer "tee /tmp/newsboat && puri /tmp/muttb"
-```
-
 ### Shell
 
 ```sh
