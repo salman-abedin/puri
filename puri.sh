@@ -36,8 +36,9 @@ getkey() {
 handleinput() {
     case "$(getkey)" in
         ';')
-            setsid "$BROWSER" "$(sed "${cursor}q;d" "$URLS")"
-            quit
+            setsid falkon "$(sed "${cursor}q;d" "$URLS")" > /dev/null 2>&1
+            # setsid "$BROWSER" "$(sed "${cursor}q;d" "$URLS")"
+            # quit
             ;;
         l)
             [ "$cursor" -lt "$ITEMS" ] && cursor=$((cursor + 1))
@@ -68,13 +69,20 @@ mark() {
 
 goto() { printf "%b" "\033[${1};${2}H"; }
 
-footer() {
+setborder() {
+    goto 1 "$((COLUMNS / 2 - 10))"
+    for i in $(seq $COLUMNS); do printf "%s" "-"; done
+    goto "$((LINES - 2))" 0
+    for i in $(seq $COLUMNS); do printf "%s" "-"; done
+}
+
+setfooter() {
     goto "$((LINES - 1))" "$((COLUMNS / 2 - 10))"
     mark "$@"
 }
 
-header() {
-    goto 3 "$((COLUMNS / 2 - 10))"
+setheader() {
+    goto 0 "$((COLUMNS / 2 - 10))"
     mark "$@"
     printf "\n\n\n"
 }
@@ -87,8 +95,9 @@ setscreen() {
 
 main() {
     setscreen
-    header TUP: tmux url picker
-    footer j:Down k:Up l:launch h:Quit
+    setborder
+    setheader TUP: tmux url picker
+    setfooter j:Down k:Up l:launch h:Quit
     while :; do
         drawitems
         handleinput

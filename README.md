@@ -1,6 +1,6 @@
-# puri: A minimal URL launcher for CLI
+# puri: A minimal URL launcher for the command line interface
 
-puri is an extremely minimal url launcher written in pure POSIX shellscript.
+puri is a TUI for selecting URLs and Its written in ~100 lines of pure POSIX shellscript.
 
 ## Installation
 
