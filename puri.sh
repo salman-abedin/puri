@@ -2,7 +2,7 @@
 #
 # Launches a TUI of URLs to pick searched from a given file
 # Usage: puri [FILE...]
-# Dependencies: grep, sed, uniq, tr, wc, cut, stty, head, read
+# Dependencies: grep, sed, sort, uniq, tr, wc, cut, stty, head, read
 
 URLS=/tmp/puri_$$
 cursor=1
