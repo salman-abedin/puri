@@ -53,7 +53,7 @@ goto() { printf "\033[%s;%sH" "$1" "$2"; }
 
 setfooter() {
     goto "$((LINES - 1))" "$((COLUMNS / 2 - 10))"
-    mark "j:Down k:Up l:launch h:Quit"
+    mark "h:Quit j:Down k:Up l:launch"
 }
 
 setborder() {
