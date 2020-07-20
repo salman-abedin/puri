@@ -5,8 +5,8 @@
 # Dependencies: grep, sed, sort, uniq, tr, wc, cut, stty, head, read
 
 URLS=/tmp/puri_$$
-cursor=1
 ITEMS=0
+cursor=1
 
 quit() {
     printf "\033[?25h\033[2J\033[H"

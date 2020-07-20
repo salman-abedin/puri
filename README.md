@@ -4,8 +4,6 @@
 
 puri is a TUI for searching and launching URLs from a given file.
 
-puri is written in ~100 lines of pure POSIX shellscript.
-
 ## Dependencies
 
 -  grep, sed, sort, uniq, tr, wc, cut, stty, head, read
