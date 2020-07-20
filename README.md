@@ -25,7 +25,7 @@ bind u run 'tmux capture-pane -p > /tmp/tb' \; \
   new-window -n puri 'puri /tmp/tb && rm -f /tmp/tb'
 ```
 
-### Mutt
+### Mutt/Neomutt
 
 ```muttrc
 macro index,pager o "<pipe-entry>tee /tmp/muttb<enter><shell-escape>puri /tmp/muttb<enter>"
