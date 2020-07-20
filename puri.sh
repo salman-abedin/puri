@@ -70,7 +70,7 @@ setheader() {
 }
 
 setscreen() {
-    printf "%b" "\033[?25l\033[2J\033[H"
+    printf "\033[?25l\033[2J\033[H"
     LINES=$(stty size | cut -d' ' -f1)
     COLUMNS=$(stty size | cut -d' ' -f2)
 }
