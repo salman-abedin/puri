@@ -4,7 +4,7 @@
 # Usage: puri [FILE...]
 # Dependencies: grep, sed, sort, uniq, tr, wc, cut, stty, head, read
 
-URLS=/tmp/puri_$$
+URLS=/tmp/puri_urls
 ITEMS=0
 cursor=1
 
