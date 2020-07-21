@@ -25,10 +25,21 @@ handleinput() {
     case "$(getkey)" in
         h) quit ;;
         j)
-            [ "$cursor" -lt "$(wc -l "$URLS" | cut -d' ' -f1)" ] &&
+            ITEMS=$(wc -l "$URLS" | cut -d' ' -f1)
+            if [ "$cursor" -lt "$ITEMS" ]; then
                 cursor=$((cursor + 1))
+            else
+                cursor=1
+            fi
             ;;
-        k) [ "$cursor" -gt 1 ] && cursor=$((cursor - 1)) ;;
+        k)
+            if [ "$cursor" -gt 1 ]; then
+                cursor=$((cursor - 1))
+            else
+                cursor=$ITEMS
+            fi
+            ;;
+
         l) setsid "$BROWSER" "$(cat $mark)" > /dev/null 2>&1 ;;
     esac
 }
