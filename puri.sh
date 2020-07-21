@@ -32,7 +32,6 @@ handleinput() {
             ITEMS=$(wc -l "$URLS" | cut -d' ' -f1)
             cursor=$((cursor > 1 ? cursor - 1 : ITEMS))
             ;;
-
         l) setsid "$BROWSER" "$(cat $marks)" > /dev/null 2>&1 ;;
     esac
 }
