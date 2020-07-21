@@ -9,7 +9,7 @@ ITEMS=0
 cursor=1
 
 quit() {
-    printf "\033[?25h\033[2J\033[H"
+    printf "\033[?7h\033[?25h\033[2J\033[H"
     rm -f "$URLS"
     exit
 }
@@ -70,7 +70,7 @@ setheader() {
 }
 
 setscreen() {
-    printf "\033[?25l\033[2J\033[H"
+    printf "\033[?7l\033[?25l\033[2J\033[H"
     LINES=$(stty size | cut -d' ' -f1)
     COLUMNS=$(stty size | cut -d' ' -f2)
 }
