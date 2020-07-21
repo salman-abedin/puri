@@ -92,7 +92,7 @@ main() {
     setheader
     setfooter
 
-    trap 'quit' INT
+    trap 'quit' INT EXIT
 
     while :; do
         drawitems
