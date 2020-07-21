@@ -67,7 +67,7 @@ setscreen() {
     goto "$((LINES - 2))" 0
     for i in $(seq "$COLUMNS"); do printf "%s" "-"; done
     goto "$((LINES - 1))" "$((COLUMNS / 2 - 15))"
-    echo "h:Quit j:Down k:Up l:launch"
+    echo "h:Quit   j:Down   k:Up   l:launch"
 
     printf "\033[0m"
 
