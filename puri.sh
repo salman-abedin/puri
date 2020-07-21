@@ -26,18 +26,11 @@ handleinput() {
         h) quit ;;
         j)
             ITEMS=$(wc -l "$URLS" | cut -d' ' -f1)
-            if [ "$cursor" -lt "$ITEMS" ]; then
-                cursor=$((cursor + 1))
-            else
-                cursor=1
-            fi
+            cursor=$((cursor < ITEMS ? cursor + 1 : 1))
             ;;
         k)
-            if [ "$cursor" -gt 1 ]; then
-                cursor=$((cursor - 1))
-            else
-                cursor=$ITEMS
-            fi
+            ITEMS=$(wc -l "$URLS" | cut -d' ' -f1)
+            cursor=$((cursor > 1 ? cursor - 1 : ITEMS))
             ;;
 
         l) setsid "$BROWSER" "$(cat $marks)" > /dev/null 2>&1 ;;
