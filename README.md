@@ -2,7 +2,7 @@
 
 # puri: A minimal URL launcher for the command line interface
 
-puri is a TUI for searching and launching URLs from a given file.
+puri is a minimal TUI for searching and launching URLs from a given file.
 
 ## Dependencies
 
