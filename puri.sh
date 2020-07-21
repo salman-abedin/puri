@@ -6,11 +6,11 @@
 
 URLS=/tmp/puri_urls
 cursor=1
-mark=/tmp/tide_mark
+marks=/tmp/tide_marks
 
 quit() {
     printf "\033[?7h\033[?25h\033[2J\033[H"
-    rm -f $URLS $mark
+    rm -f $URLS $marks
     exit
 }
 
@@ -40,7 +40,7 @@ handleinput() {
             fi
             ;;
 
-        l) setsid "$BROWSER" "$(cat $mark)" > /dev/null 2>&1 ;;
+        l) setsid "$BROWSER" "$(cat $marks)" > /dev/null 2>&1 ;;
     esac
 }
 
@@ -59,7 +59,7 @@ drawitems() {
 
 mark() {
     printf "\033[7m%s\033[27m\n" "$1"
-    echo "${1%% *}" > "$mark"
+    echo "${1%% *}" > "$marks"
 }
 
 goto() { printf "\033[%s;%sH" "$1" "$2"; }
