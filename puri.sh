@@ -5,7 +5,6 @@
 # Usage: puri [FILE...]
 
 URLS=/tmp/puri_urls
-ITEMS=0
 cursor=1
 mark=/tmp/tide_mark
 
@@ -25,7 +24,10 @@ getkey() {
 handleinput() {
     case "$(getkey)" in
         h) quit ;;
-        j) [ "$cursor" -lt "$ITEMS" ] && cursor=$((cursor + 1)) ;;
+        j)
+            [ "$cursor" -lt "$(wc -l "$URLS" | cut -d' ' -f1)" ] &&
+                cursor=$((cursor + 1))
+            ;;
         k) [ "$cursor" -gt 1 ] && cursor=$((cursor - 1)) ;;
         l) setsid "$BROWSER" "$(cat $mark)" > /dev/null 2>&1 ;;
     esac
@@ -81,7 +83,6 @@ init() {
         tr -d '\n' |
         sed -e 's/http/\nhttp/g' -e 's/$/\n/' |
         sed '1d' | sort | uniq > "$URLS"
-    ITEMS=$(wc -l "$URLS" | cut -d' ' -f1)
 }
 
 main() {
