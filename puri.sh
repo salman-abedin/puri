@@ -10,7 +10,7 @@ mark=/tmp/tide_mark
 
 quit() {
     printf "\033[?7h\033[?25h\033[2J\033[H"
-    rm -f "$URLS"
+    rm -f $URLS $mark
     exit
 }
 
