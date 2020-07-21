@@ -53,28 +53,24 @@ mark() {
 
 goto() { printf "\033[%s;%sH" "$1" "$2"; }
 
-setfooter() {
-    goto "$((LINES - 1))" "$((COLUMNS / 2 - 10))"
-    mark "h:Quit j:Down k:Up l:launch"
-}
-
-setborder() {
-    goto 3 0
-    for i in $(seq "$COLUMNS"); do printf "%s" "-"; done
-    goto "$((LINES - 2))" 0
-    for i in $(seq "$COLUMNS"); do printf "%s" "-"; done
-}
-
-setheader() {
-    goto 2 "$((COLUMNS / 2 - 10))"
-    mark "puri: Puny URL Launcher"
-    printf "\n\n\n"
-}
-
 setscreen() {
     printf "\033[?7l\033[?25l\033[2J\033[H"
     LINES=$(stty size | cut -d' ' -f1)
     COLUMNS=$(stty size | cut -d' ' -f2)
+
+    printf "\033[2m"
+
+    goto 2 "$((COLUMNS / 2 - 10))"
+    echo "puri: Puny URL Launcher"
+    goto 3 0
+    for i in $(seq "$COLUMNS"); do printf "%s" "-"; done
+    goto "$((LINES - 2))" 0
+    for i in $(seq "$COLUMNS"); do printf "%s" "-"; done
+    goto "$((LINES - 1))" "$((COLUMNS / 2 - 15))"
+    echo "h:Quit j:Down k:Up l:launch"
+
+    printf "\033[0m"
+
 }
 
 init() {
@@ -88,12 +84,7 @@ init() {
 main() {
     init "$@"
     setscreen
-    setborder
-    setheader
-    setfooter
-
     trap 'quit' INT EXIT
-
     while :; do
         drawitems
         handleinput
