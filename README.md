@@ -1,6 +1,6 @@
 ![](preview.gif)
 
-# puri: A minimal URL launcher for the command line interface
+# puri: A minimal CLI URL launcher
 
 puri is a minimal TUI for searching and launching URLs from a given file.
 
