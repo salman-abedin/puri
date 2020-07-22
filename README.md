@@ -4,7 +4,7 @@
 
 puri is a minimal TUI for searching and launching URLs from a given file.
 
-puri is a ~100 lines of POSIX shellscript.
+puri is a ~100 line POSIX shellscript.
 
 ## Features
 
