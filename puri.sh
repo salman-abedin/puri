@@ -90,7 +90,7 @@ main() {
     setscreen
     drawui
     trap 'quit' INT EXIT
-    trap 'setscreen; drawui' WINCH
+    trap 'setscreen; drawui; drawitems' WINCH
     while :; do
         drawitems
         handleinput
