@@ -14,7 +14,7 @@ puri is a ~100 line POSIX shellscript.
 
 ## Dependencies
 
--  grep, sed, sort, uniq, tr, wc, cut, stty, head, seq
+-  grep, sed, sort, uniq, tr, wc, cut, stty, head, seq, cat
 
 ## Installation
 
