@@ -56,11 +56,7 @@ mark() {
 
 goto() { printf "\033[%s;%sH" "$1" "$2"; }
 
-setscreen() {
-    printf "\033[?7l\033[?25l\033[2J\033[H"
-    LINES=$(stty size | cut -d' ' -f1)
-    COLUMNS=$(stty size | cut -d' ' -f2)
-
+drawui() {
     printf "\033[2m"
 
     goto 2 "$((COLUMNS / 2 - 10))"
@@ -73,7 +69,12 @@ setscreen() {
     echo "h:Quit   j:Down   k:Up   l:launch"
 
     printf "\033[m"
+}
 
+setscreen() {
+    LINES=$(stty size | cut -d' ' -f1)
+    COLUMNS=$(stty size | cut -d' ' -f2)
+    printf "\033[?7l\033[?25l\033[2J\033[H"
 }
 
 init() {
@@ -87,7 +88,9 @@ init() {
 main() {
     init "$@"
     setscreen
+    drawui
     trap 'quit' INT EXIT
+    trap 'setscreen; drawui' WINCH
     while :; do
         drawitems
         handleinput
