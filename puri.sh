@@ -61,7 +61,6 @@ drawui() {
 
     goto 2 "$((COLUMNS / 2 - 10))"
     echo "puri: Puny URL Launcher"
-    goto 3 0
     for i in $(seq "$COLUMNS"); do printf "%s" "-"; done
     goto "$((LINES - 2))" 0
     for i in $(seq "$COLUMNS"); do printf "%s" "-"; done
