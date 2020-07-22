@@ -5,8 +5,8 @@
 # Usage: puri [FILE...]
 
 URLS=/tmp/puri_urls
-cursor=1
 marks=/tmp/tide_marks
+cursor=1
 
 quit() {
     printf "\033[?7h\033[?25h\033[2J\033[H"
