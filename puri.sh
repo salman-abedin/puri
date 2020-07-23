@@ -1,7 +1,7 @@
 #!/bin/sh
 #
 # Launches a TUI of URLs to pick searched from a given file
-# Dependencies: grep, sed, sort, uniq, tr, wc, cut, stty, head, seq, cat
+# Dependencies: grep, sed, sort, tr, wc, cut, stty, head, seq, cat
 # Usage: puri [FILE...]
 
 URLS=/tmp/puri_urls
@@ -81,7 +81,7 @@ init() {
         '(http|https)://[a-zA-Z0-9+&@#/%?=~_|!:,.;-]*\n*[a-zA-Z0-9+&@#/%?=~_|!:,.;-]*' "$@" |
         tr -d '\n' |
         sed -e 's/http/\nhttp/g' -e 's/$/\n/' |
-        sed '1d' | sort | uniq > "$URLS"
+        sed '1d' | sort -u > "$URLS"
 }
 
 main() {
