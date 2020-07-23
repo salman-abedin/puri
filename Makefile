@@ -1,16 +1,10 @@
-.POSIX:
 PREFIX = /usr/local
-
 install:
+	@cp bolt.sh puri
+	@chmod 755 puri
 	@mkdir -p ${DESTDIR}${PREFIX}/bin
-	@for e in *.sh; do \
-		cp -f $$e $${e%.*}; \
-		chmod 755 $${e%.*}; \
-		mv $${e%.*} ${DESTDIR}${PREFIX}/bin; \
-		done
+	@mv puri ${DESTDIR}${PREFIX}/bin
 	@echo Done installing executable files to ${DESTDIR}${PREFIX}/bin
 uninstall:
-	@for e in *.sh;do \
-		rm -f ${DESTDIR}${PREFIX}/bin/$${e%.*}; \
-		done
+	@rm -f ${DESTDIR}${PREFIX}/bin/puri
 	@echo Done removing executable files from ${DESTDIR}${PREFIX}/bin
