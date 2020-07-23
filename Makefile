@@ -1,6 +1,6 @@
 PREFIX = /usr/local
 install:
-	@cp bolt.sh puri
+	@cp puri.sh puri
 	@chmod 755 puri
 	@mkdir -p ${DESTDIR}${PREFIX}/bin
 	@mv puri ${DESTDIR}${PREFIX}/bin
