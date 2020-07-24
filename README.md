@@ -63,26 +63,15 @@ sudo make uninstall
 
 ## Repos you might be interested in
 
-[bolt](https://github.com/salman-abedin/bolt)
-: The lightning fast workflow creator
-
-[uniblocks](https://github.com/salman-abedin/uniblocks)
-: The status bar wrapper
-
-[tide](https://github.com/salman-abedin/puri)
-: Minimal Transmission CLI client
-
-[crystal](https://github.com/salman-abedin/crystal)
-: The transparent setup
-
-[devour](https://github.com/salman-abedin/devour)
-: Terminal swallowing
-
-[Magpie](https://github.com/salman-abedin/magpie)
-: The dotfiles
-
-[Alfred](https://github.com/salman-abedin/alfred)
-: The scripts
+| Name                                                    | Description             |
+| ------------------------------------------------------- | ----------------------- |
+| [bolt](https://github.com/salman-abedin/bolt)           | The launcher wrapper    |
+| [uniblocks](https://github.com/salman-abedin/uniblocks) | The status bar wrapper  |
+| [tide](https://github.com/salman-abedin/tide)           | Transmission CLI client |
+| [devour](https://github.com/salman-abedin/devour)       | Terminal swallowing     |
+| [crystal](https://github.com/salman-abedin/crystal)     | The transparent setup   |
+| [Magpie](https://github.com/salman-abedin/magpie)       | The dotfiles            |
+| [Alfred](https://github.com/salman-abedin/alfred)       | The scripts             |
 
 ## Contact
 
