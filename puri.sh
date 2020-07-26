@@ -6,7 +6,9 @@
 
 URLS=/tmp/puri_urls
 marks=/tmp/tide_marks
+
 cursor=1
+start=1
 
 quit() {
     printf "\033[?7h\033[?25h\033[2J\033[H"
@@ -26,20 +28,22 @@ handleinput() {
         h) quit ;;
         j)
             ITEMS=$(wc -l "$URLS" | cut -d' ' -f1)
-            cursor=$((cursor < ITEMS ? cursor + 1 : 1))
+            [ "$cursor" -lt "$LIMIT" ] && cursor=$((cursor + 1))
+            [ "$end" -lt "$ITEMS" ] && end=$((end + 1))
             ;;
         k)
             ITEMS=$(wc -l "$URLS" | cut -d' ' -f1)
-            cursor=$((cursor > 1 ? cursor - 1 : ITEMS))
+            [ "$cursor" -gt 1 ] && cursor=$((cursor - 1))
+            [ "$start" -gt 1 ] && start=$((start - 1))
             ;;
         l) setsid "$BROWSER" "$(cat $marks)" > /dev/null 2>&1 ;;
     esac
 }
 
 drawitems() {
-    goto 5 0
+    goto 4 0
 
-    for i in $(seq 30); do
+    for i in $(seq 50); do
         echo "$i"
     done > "$URLS"
 
@@ -48,10 +52,10 @@ drawitems() {
         i=$((i + 1))
         if [ "$i" = "$cursor" ]; then
             mark "$url"
-        else
+        elif [ "$i" -le "$end" ] && [ "$i" -ge "$start" ]; then
             echo "$url"
         fi
-        [ "$i" = "$(LINES - 5)" ] && break
+        # [ "$i" = "$LIMIT" ] && break
     done < "$URLS"
 }
 
@@ -79,6 +83,8 @@ drawui() {
 setscreen() {
     LINES=$(stty size | cut -d' ' -f1)
     COLUMNS=$(stty size | cut -d' ' -f2)
+    LIMIT=$((LINES - 6))
+    end=$LIMIT
     printf "\033[?7l\033[?25l\033[2J\033[H"
 }
 
