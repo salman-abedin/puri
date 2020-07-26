@@ -38,6 +38,11 @@ handleinput() {
 
 drawitems() {
     goto 5 0
+
+    for i in $(seq 30); do
+        echo "$i"
+    done > "$URLS"
+
     i=0
     while read -r url; do
         i=$((i + 1))
@@ -46,6 +51,7 @@ drawitems() {
         else
             echo "$url"
         fi
+        [ "$i" = "$(LINES - 5)" ] && break
     done < "$URLS"
 }
 
