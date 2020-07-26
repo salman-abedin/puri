@@ -29,12 +29,18 @@ handleinput() {
         j)
             ITEMS=$(wc -l "$URLS" | cut -d' ' -f1)
             [ "$cursor" -lt "$LIMIT" ] && cursor=$((cursor + 1))
-            [ "$cursor" = "$LIMIT" ] && [ "$end" -lt "$ITEMS" ] && end=$((end + 1))
+            [ "$cursor" = "$LIMIT" ] && [ "$end" -lt "$ITEMS" ] && {
+                end=$((end + 1))
+                setscreen
+            }
             ;;
         k)
             ITEMS=$(wc -l "$URLS" | cut -d' ' -f1)
             [ "$cursor" -gt 1 ] && cursor=$((cursor - 1))
-            [ "$cursor" = 1 ] && [ "$start" -gt 1 ] && start=$((start - 1))
+            [ "$cursor" = 1 ] && [ "$start" -gt 1 ] && {
+                start=$((start - 1))
+                setscreen
+            }
             ;;
         l) setsid "$BROWSER" "$(cat $marks)" > /dev/null 2>&1 ;;
     esac
