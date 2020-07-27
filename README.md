@@ -50,10 +50,6 @@ puri [FILE...]
 sudo make uninstall
 ```
 
-## TODOs
-
--  Scrolling support
-
 ## Similar Projects
 
 -  [urlscan](https://github.com/firecat53/urlscan)
