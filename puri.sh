@@ -28,18 +28,20 @@ handleinput() {
         h) quit ;;
         j)
             ITEMS=$(wc -l "$URLS" | cut -d' ' -f1)
-            [ "$cursor" -lt "$LIMIT" ] && cursor=$((cursor + 1))
             [ "$cursor" = "$LIMIT" ] && [ "$end" -lt "$ITEMS" ] && {
+                drawui
                 end=$((end + 1))
-                setscreen
+                ns "$end"
             }
+            [ "$cursor" -lt "$LIMIT" ] && cursor=$((cursor + 1))
             ;;
         k)
             ITEMS=$(wc -l "$URLS" | cut -d' ' -f1)
             [ "$cursor" -gt 1 ] && cursor=$((cursor - 1))
             [ "$cursor" = 1 ] && [ "$start" -gt 1 ] && {
+                drawui
                 start=$((start - 1))
-                setscreen
+                ns "$start"
             }
             ;;
         l) setsid "$BROWSER" "$(cat $marks)" > /dev/null 2>&1 ;;
@@ -52,6 +54,8 @@ drawitems() {
     for i in $(seq 50); do
         echo "$i"
     done > "$URLS"
+
+    sed -n "$start,$end p"
 
     i=0
     while read -r url; do
@@ -73,6 +77,8 @@ mark() {
 goto() { printf "\033[%s;%sH" "$1" "$2"; }
 
 drawui() {
+    printf "\033[?7l\033[?25l\033[2J\033[H"
+
     printf "\033[2m"
 
     goto 2 "$((COLUMNS / 2 - 10))"
@@ -91,7 +97,6 @@ setscreen() {
     COLUMNS=$(stty size | cut -d' ' -f2)
     LIMIT=$((LINES - 6))
     end=$LIMIT
-    printf "\033[?7l\033[?25l\033[2J\033[H"
 }
 
 init() {
