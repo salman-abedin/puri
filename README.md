@@ -9,8 +9,7 @@ puri is a ~100 line POSIX shellscript.
 ## Features
 
 -  Vim bindings
--  Launching URLs
--  Quitting
+-  Scrollable list
 
 ## Dependencies
 
