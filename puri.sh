@@ -112,10 +112,6 @@ init() {
         tr -d '\n' |
         sed -e 's/http/\nhttp/g' -e 's/$/\n/' |
         sed '1d' | sort -u > "$URLS"
-
-    for i in $(seq 50); do
-        echo "$i"
-    done > "$URLS"
 }
 
 main() {
