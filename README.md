@@ -49,6 +49,10 @@ puri [FILE...]
 sudo make uninstall
 ```
 
+## Patches
+
+-  **27/07/20**:- Added scrolling support
+
 ## Similar Projects
 
 -  [urlscan](https://github.com/firecat53/urlscan)
