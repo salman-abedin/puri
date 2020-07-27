@@ -31,18 +31,18 @@ handleinput() {
             [ "$cursor" = "$LIMIT" ] && [ "$end" -lt "$ITEMS" ] && {
                 drawui
                 end=$((end + 1))
-                ns "$end"
+                start=$((start + 1))
             }
             [ "$cursor" -lt "$LIMIT" ] && cursor=$((cursor + 1))
             ;;
         k)
             ITEMS=$(wc -l "$URLS" | cut -d' ' -f1)
-            [ "$cursor" -gt 1 ] && cursor=$((cursor - 1))
             [ "$cursor" = 1 ] && [ "$start" -gt 1 ] && {
                 drawui
                 start=$((start - 1))
-                ns "$start"
+                end=$((end - 1))
             }
+            [ "$cursor" -gt 1 ] && cursor=$((cursor - 1))
             ;;
         l) setsid "$BROWSER" "$(cat $marks)" > /dev/null 2>&1 ;;
     esac
@@ -104,7 +104,6 @@ init() {
     for i in $(seq 50); do
         echo "$i"
     done > "$URLS"
-
 }
 
 main() {
