@@ -5,14 +5,24 @@
 # Usage: puri [FILE...]
 
 URLS=/tmp/puri_urls
+view=/tmp/puri_view
 marks=/tmp/tide_marks
 
 cursor=1
 start=1
 
+# Minimal 'wc'
+# Stolen from https://github.com/dylanaraps/pure-sh-bible#get-the-number-of-lines-in-a-file
+mwc() {
+    while IFS= read -r line || [ -n "$line" ]; do
+        lines=$((lines + 1))
+    done < "$1"
+    echo "$lines"
+}
+
 quit() {
     printf "\033[?7h\033[?25h\033[2J\033[H"
-    rm -f $URLS $marks
+    rm -f $URLS $marks $view
     exit
 }
 
@@ -27,30 +37,31 @@ handleinput() {
     case "$(getkey)" in
         h) quit ;;
         j)
-            ITEMS=$(wc -l "$URLS" | cut -d' ' -f1)
-            [ "$cursor" = "$LIMIT" ] && [ "$end" -lt "$ITEMS" ] && {
-                drawui
+            ITEMS=$(mwc "$URLS")
+            if [ "$cursor" = "$LIMIT" ] && [ "$end" -lt "$ITEMS" ]; then
                 end=$((end + 1))
                 start=$((start + 1))
-            }
-            [ "$cursor" -lt "$LIMIT" ] && cursor=$((cursor + 1))
+                drawui
+            else
+                cursor=$((cursor < LIMIT ? cursor + 1 : cursor))
+            fi
+
             ;;
         k)
-            ITEMS=$(wc -l "$URLS" | cut -d' ' -f1)
-            [ "$cursor" = 1 ] && [ "$start" -gt 1 ] && {
-                drawui
+            ITEMS=$(mwc "$URLS")
+            if [ "$cursor" = 1 ] && [ "$start" -gt 1 ]; then
                 start=$((start - 1))
                 end=$((end - 1))
-            }
-            [ "$cursor" -gt 1 ] && cursor=$((cursor - 1))
+                drawui
+            else
+                cursor=$((cursor > 1 ? cursor - 1 : cursor))
+            fi
             ;;
         l) setsid "$BROWSER" "$(cat $marks)" > /dev/null 2>&1 ;;
     esac
 }
 
 drawitems() {
-    sed -n "$start,$end p" "$URLS" > /tmp/testing
-
     goto 4 0
     i=0
     while read -r url; do
@@ -60,8 +71,7 @@ drawitems() {
         else
             echo "$url"
         fi
-        # [ "$i" = "$LIMIT" ] && break
-    done < /tmp/testing
+    done < $view
 }
 
 mark() {
@@ -85,13 +95,15 @@ drawui() {
     echo "h:Quit   j:Down   k:Up   l:launch"
 
     printf "\033[m"
+
+    sed -n "$start,$end p" "$URLS" > $view
 }
 
 setscreen() {
     LINES=$(stty size | cut -d' ' -f1)
     COLUMNS=$(stty size | cut -d' ' -f2)
     LIMIT=$((LINES - 6))
-    end=$LIMIT
+    end=$((start - 1 + LIMIT))
 }
 
 init() {
@@ -110,7 +122,7 @@ main() {
     init "$@"
     setscreen
     drawui
-    trap 'quit' INT EXIT
+    trap 'quit' INT TERM QUIT EXIT
     trap 'setscreen; drawui; drawitems' WINCH
     while :; do
         drawitems
