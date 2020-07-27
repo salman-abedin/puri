@@ -49,24 +49,19 @@ handleinput() {
 }
 
 drawitems() {
+    sed -n "$start,$end p" "$URLS" > /tmp/testing
+
     goto 4 0
-
-    for i in $(seq 50); do
-        echo "$i"
-    done > "$URLS"
-
-    sed -n "$start,$end p"
-
     i=0
     while read -r url; do
         i=$((i + 1))
         if [ "$i" = "$cursor" ]; then
             mark "$url"
-        elif [ "$i" -le "$end" ] && [ "$i" -ge "$start" ]; then
+        else
             echo "$url"
         fi
         # [ "$i" = "$LIMIT" ] && break
-    done < "$URLS"
+    done < /tmp/testing
 }
 
 mark() {
@@ -105,6 +100,11 @@ init() {
         tr -d '\n' |
         sed -e 's/http/\nhttp/g' -e 's/$/\n/' |
         sed '1d' | sort -u > "$URLS"
+
+    for i in $(seq 50); do
+        echo "$i"
+    done > "$URLS"
+
 }
 
 main() {
