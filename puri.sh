@@ -72,6 +72,10 @@ drawitems() {
             echo "$url"
         fi
     done < $view
+
+    goto 5 0
+    # printf "\033[2K"
+    # printf "\033[M"
 }
 
 mark() {
