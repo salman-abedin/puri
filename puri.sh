@@ -8,6 +8,9 @@ URLS=/tmp/puri_urls
 view=/tmp/puri_view
 marks=/tmp/tide_marks
 
+cursor=1
+start=1
+
 # Minimal 'wc'
 # Stolen from https://github.com/dylanaraps/pure-sh-bible#get-the-number-of-lines-in-a-file
 mwc() {
@@ -32,14 +35,14 @@ getkey() {
 
 handleinput() {
     case "$(getkey)" in
-        h) quit ;;
-        j)
+        j) quit ;;
+        l)
             if [ "$cursor" = "$LIMIT" ] && [ "$end" -lt "$ITEMS" ]; then
                 end=$((end + 1))
                 start=$((start + 1))
                 drawui
-            elif [ "$cursor" -lt "$LIMIT" ]; then
-                cursor=$((cursor < ITEMS ? cursor + 1 : cursor))
+            else
+                cursor=$((cursor < end ? cursor + 1 : cursor))
             fi
 
             ;;
@@ -52,7 +55,7 @@ handleinput() {
                 cursor=$((cursor > 1 ? cursor - 1 : cursor))
             fi
             ;;
-        l) setsid "$BROWSER" "$(cat $marks)" > /dev/null 2>&1 ;;
+        ';') setsid "$BROWSER" "$(cat $marks)" > /dev/null 2>&1 ;;
     esac
 }
 
@@ -101,17 +104,23 @@ setscreen() {
 }
 
 init() {
-    grep -Pzo \
-        '(http|https)://[a-zA-Z0-9+&@#/%?=~_|!:,.;-]*\n*[a-zA-Z0-9+&@#/%?=~_|!:,.;-]*' "$@" |
-        tr -d '\n' |
-        sed -e 's/http/\nhttp/g' -e 's/$/\n/' |
-        sed '1d' | sort -u > "$URLS"
+
+    # grep -Pzo \
+    #     '(http|https)://[a-zA-Z0-9+&@#/%?=~_|!:,.;-]*\n*[a-zA-Z0-9+&@#/%?=~_|!:,.;-]*' "$@" |
+    #     tr -d '\n' |
+    #     sed -e 's/http/\nhttp/g' -e 's/$/\n/' |
+    #     sed '1d' | sort -u > "$URLS"
+
+    content=
+    while read -r line; do
+        content="$content$line"
+    done < "$1"
+    echo "$content" |
+        grep -oE '(http|https)://[a-zA-Z0-9+&@#/%?=~_|!:,.;-\]*\s' |
+        sort -u > "$URLS"
 
     ITEMS=$(mwc "$URLS")
     end=$((ITEMS > LIMIT ? LIMIT : ITEMS))
-
-    cursor=1
-    start=1
 }
 
 main() {
