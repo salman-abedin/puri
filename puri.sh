@@ -34,7 +34,6 @@ handleinput() {
     case "$(getkey)" in
         h) quit ;;
         j)
-            ITEMS=$(mwc "$URLS")
             if [ "$cursor" = "$LIMIT" ] && [ "$end" -lt "$ITEMS" ]; then
                 end=$((end + 1))
                 start=$((start + 1))
@@ -45,7 +44,6 @@ handleinput() {
 
             ;;
         k)
-            ITEMS=$(mwc "$URLS")
             if [ "$cursor" = 1 ] && [ "$start" -gt 1 ]; then
                 start=$((start - 1))
                 end=$((end - 1))
