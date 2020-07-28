@@ -38,8 +38,8 @@ handleinput() {
                 end=$((end + 1))
                 start=$((start + 1))
                 drawui
-            else
-                cursor=$((cursor < end ? cursor + 1 : cursor))
+            elif [ "$cursor" -lt "$LIMIT" ]; then
+                cursor=$((cursor < ITEMS ? cursor + 1 : cursor))
             fi
 
             ;;
@@ -106,6 +106,8 @@ init() {
         tr -d '\n' |
         sed -e 's/http/\nhttp/g' -e 's/$/\n/' |
         sed '1d' | sort -u > "$URLS"
+
+    for i in $(seq 15); do echo $i; done > "$URLS"
 
     ITEMS=$(mwc "$URLS")
     end=$((ITEMS > LIMIT ? LIMIT : ITEMS))
