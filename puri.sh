@@ -103,13 +103,11 @@ setscreen() {
 }
 
 init() {
-    content=
-    while read -r line; do
-        content="$content$line"
-    done < "$1"
-    echo "$content" |
-        grep -oE '(http|https)://[a-zA-Z0-9+&@#/%?=~_|!:,.;-\]*\s' |
-        sort -u > "$URLS"
+    grep -Pzo \
+        '(http|https)://[a-zA-Z0-9+&@#/%?=~_|!:,.;-]*\n*[a-zA-Z0-9+&@#/%?=~_|!:,.;-]*' "$@" |
+        tr -d '\n' |
+        sed -e 's/http/\nhttp/g' -e 's/$/\n/' |
+        sed '1d' | sort -u > "$URLS"
 
     ITEMS=$(mwc "$URLS")
     end=$((ITEMS > LIMIT ? LIMIT : ITEMS))
