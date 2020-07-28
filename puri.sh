@@ -107,8 +107,6 @@ init() {
         sed -e 's/http/\nhttp/g' -e 's/$/\n/' |
         sed '1d' | sort -u > "$URLS"
 
-    for i in $(seq 15); do echo $i; done > "$URLS"
-
     ITEMS=$(mwc "$URLS")
     end=$((ITEMS > LIMIT ? LIMIT : ITEMS))
 
