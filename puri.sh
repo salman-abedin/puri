@@ -35,8 +35,8 @@ getkey() {
 
 handleinput() {
     case "$(getkey)" in
-        j) quit ;;
-        l)
+        h) quit ;;
+        j)
             if [ "$cursor" = "$LIMIT" ] && [ "$end" -lt "$ITEMS" ]; then
                 end=$((end + 1))
                 start=$((start + 1))
@@ -55,7 +55,7 @@ handleinput() {
                 cursor=$((cursor > 1 ? cursor - 1 : cursor))
             fi
             ;;
-        ';') setsid "$BROWSER" "$(cat $marks)" > /dev/null 2>&1 ;;
+        l) setsid "$BROWSER" "$(cat $marks)" > /dev/null 2>&1 ;;
     esac
 }
 
@@ -104,21 +104,11 @@ setscreen() {
 }
 
 init() {
-
-    # grep -Pzo \
-    #     '(http|https)://[a-zA-Z0-9+&@#/%?=~_|!:,.;-]*\n*[a-zA-Z0-9+&@#/%?=~_|!:,.;-]*' "$@" |
-    #     tr -d '\n' |
-    #     sed -e 's/http/\nhttp/g' -e 's/$/\n/' |
-    #     sed '1d' | sort -u > "$URLS"
-
-    content=
-    while read -r line; do
-        content="$content$line"
-    done < "$1"
-    echo "$content" |
-        grep -oE '(http|https)://[a-zA-Z0-9+&@#/%?=~_|!:,.;-\]*\s' |
-        sort -u > "$URLS"
-
+    grep -Pzo \
+        '(http|https)://[a-zA-Z0-9+&@#/%?=~_|!:,.;-]*\n*[a-zA-Z0-9+&@#/%?=~_|!:,.;-]*' "$@" |
+        tr -d '\n' |
+        sed -e 's/http/\nhttp/g' -e 's/$/\n/' |
+        sed '1d' | sort -u > "$URLS"
     ITEMS=$(mwc "$URLS")
     end=$((ITEMS > LIMIT ? LIMIT : ITEMS))
 }
