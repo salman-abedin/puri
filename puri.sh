@@ -8,9 +8,6 @@ URLS=/tmp/puri_urls
 view=/tmp/puri_view
 marks=/tmp/tide_marks
 
-cursor=1
-start=1
-
 # Minimal 'wc'
 # Stolen from https://github.com/dylanaraps/pure-sh-bible#get-the-number-of-lines-in-a-file
 mwc() {
@@ -111,6 +108,10 @@ init() {
     rm -f $URLSTRING
     ITEMS=$(mwc "$URLS")
     end=$((ITEMS > LIMIT ? LIMIT : ITEMS))
+
+    cursor=1
+    start=1
+
 }
 
 main() {
