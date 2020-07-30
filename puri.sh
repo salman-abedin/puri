@@ -98,7 +98,7 @@ init() {
     while read -r line; do
         printf "%s" "$line"
     done < "$1" >> $URLSTRING
-    grep -Eo 'http[s]?://[-#a-Z0-9_./?=_%:]*' $URLSTRING | sort -u > "$URLS"
+    grep -Eo 'http[s]?://[-#a-Z0-9_./?=_%:+]*' $URLSTRING | sort -u > "$URLS"
     rm -f $URLSTRING
 
     ITEMS=$(mwc "$URLS")
