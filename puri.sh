@@ -44,7 +44,6 @@ handleinput() {
             else
                 cursor=$((cursor < end ? cursor + 1 : cursor))
             fi
-
             ;;
         k)
             if [ "$cursor" = 1 ] && [ "$start" -gt 1 ]; then
