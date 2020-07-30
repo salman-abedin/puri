@@ -23,14 +23,14 @@ git clone https://github.com/salman-abedin/puri.git && cd puri && sudo make inst
 
 ## Usage
 
-#### Tmux
+#### Tmux ( Press Prefix, 'u' )
 
 ```tmux
 bind u run 'tmux capture-pane -p > /tmp/tb' \; \
   split-window 'puri /tmp/tb && rm -f /tmp/tb'
 ```
 
-#### Mutt/Neomutt
+#### Mutt/Neomutt ( Press 'o' )
 
 ```muttrc
 macro index,pager o "<pipe-entry>tee /tmp/muttb<enter><shell-escape>puri /tmp/muttb<enter>"
