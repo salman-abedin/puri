@@ -106,12 +106,11 @@ init() {
     done < "$1" >> $URLSTRING
     grep -Eo 'http[s]?://[-#a-Z0-9_./?=_%:]*' $URLSTRING | sort -u > "$URLS"
     rm -f $URLSTRING
+
     ITEMS=$(mwc "$URLS")
     end=$((ITEMS > LIMIT ? LIMIT : ITEMS))
-
     cursor=1
     start=1
-
 }
 
 main() {
