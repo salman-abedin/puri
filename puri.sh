@@ -104,11 +104,12 @@ setscreen() {
 }
 
 init() {
-    grep -Pzo \
-        '(http|https)://[a-zA-Z0-9+&@#/%?=~_|!:,.;-]*\n*[a-zA-Z0-9+&@#/%?=~_|!:,.;-]*' "$@" |
-        tr -d '\n' |
-        sed -e 's/http/\nhttp/g' -e 's/$/\n/' |
-        sed '1d' | sort -u > "$URLS"
+    URLSTRING=/tmp/puri_urlstring
+    while read -r line; do
+        printf "%s" "$line"
+    done < "$1" >> $URLSTRING
+    grep -Eo 'http[s]?://[a-Z0-9_./?=_%:-]*' $URLSTRING | sort -u > "$URLS"
+    rm -f $URLSTRING
     ITEMS=$(mwc "$URLS")
     end=$((ITEMS > LIMIT ? LIMIT : ITEMS))
 }
