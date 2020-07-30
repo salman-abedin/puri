@@ -27,7 +27,7 @@ git clone https://github.com/salman-abedin/puri.git && cd puri && sudo make inst
 
 ```tmux
 bind u run 'tmux capture-pane -p > /tmp/tb' \; \
-  new-window -n puri 'puri /tmp/tb && rm -f /tmp/tb'
+  split-window 'puri /tmp/tb && rm -f /tmp/tb'
 ```
 
 #### Mutt/Neomutt
