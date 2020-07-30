@@ -93,12 +93,6 @@ drawui() {
     sed -n "$start,$end p" "$URLS" > $view
 }
 
-setscreen() {
-    LINES=$(stty size | cut -d' ' -f1)
-    COLUMNS=$(stty size | cut -d' ' -f2)
-    LIMIT=$((LINES - 6))
-}
-
 init() {
     URLSTRING=/tmp/puri_urlstring
     while read -r line; do
@@ -111,6 +105,12 @@ init() {
     end=$((ITEMS > LIMIT ? LIMIT : ITEMS))
     cursor=1
     start=1
+}
+
+setscreen() {
+    LINES=$(stty size | cut -d' ' -f1)
+    COLUMNS=$(stty size | cut -d' ' -f2)
+    LIMIT=$((LINES - 6))
 }
 
 main() {
