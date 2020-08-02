@@ -1,7 +1,7 @@
 #!/bin/sh
 #
 # Launches a TUI of URLs to pick searched from a given file
-# Dependencies: grep, sed, sort, cut, stty, head, seq, cat
+# Dependencies: grep, sed, sort, cut, head, seq, cat
 # Usage: puri [FILE...]
 
 URLS=/tmp/puri_urls
