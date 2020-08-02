@@ -58,7 +58,7 @@ handleinput() {
 drawitems() {
     goto 4 0
     i=0
-    while read -r url; do
+    while IFS= read -r url; do
         i=$((i + 1))
         if [ "$i" = "$cursor" ]; then
             mark "$url"
@@ -95,7 +95,7 @@ drawui() {
 
 init() {
     URLSTRING=/tmp/puri_urlstring
-    while read -r line; do
+    while IFS= read -r line; do
         printf "%s" "$line"
     done < "$@" >> $URLSTRING
     grep -Eo 'http[s]?://[-#a-Z0-9_./?=_%:+&]*' $URLSTRING | sort -u > "$URLS"
