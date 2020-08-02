@@ -97,7 +97,7 @@ init() {
     URLSTRING=/tmp/puri_urlstring
     while read -r line; do
         printf "%s" "$line"
-    done < "$1" >> $URLSTRING
+    done < "$@" >> $URLSTRING
     grep -Eo 'http[s]?://[-#a-Z0-9_./?=_%:+&]*' $URLSTRING | sort -u > "$URLS"
     rm -f $URLSTRING
 
