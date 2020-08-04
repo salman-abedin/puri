@@ -4,6 +4,7 @@
 # Dependencies: grep, sed, sort, cut, head, seq, cat
 # Usage: puri [FILE...]
 
+
 URLS=/tmp/puri_urls
 view=/tmp/puri_view
 marks=/tmp/tide_marks
