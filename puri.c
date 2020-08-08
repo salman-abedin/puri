@@ -6,7 +6,7 @@
 
 #define HEADER "puri: Puny URL Launcher"
 #define FOOTER "h:Quit   j:Down   k:Up   l:launch"
-#define PATTERN "http[s]?://[[:alnum:][:punct:]]*"
+#define URL_PATTERN "http[s]?://[[:alnum:][:punct:]]*"
 
 int count, mark;
 WINDOW* win;
@@ -79,7 +79,7 @@ void geturls(char* path) {
    fread(buffer, sizeof(char), bytes, file);
    fclose(file);
 
-   regcomp(&regx, PATTERN, REG_EXTENDED);
+   regcomp(&regx, URL_PATTERN, REG_EXTENDED);
 
    cursor = buffer;
    while (regexec(&regx, cursor, 1, matches, 0) == 0) {
