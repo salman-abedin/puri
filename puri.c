@@ -32,7 +32,8 @@ void drawitems() {
 
 void handleinput() {
    int key;
-   char *cmd, *cmdhead = "$BROWSER";
+   char* cmd;
+   char cmdhead[] = "$BROWSER";
    while (1) {
       key = getch();
       if (key == 'j' && mark < count - 1) {
