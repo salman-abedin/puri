@@ -1,10 +1,25 @@
-PREFIX = /usr/local
-install:
-	@cp puri.sh puri
-	@chmod 755 puri
-	@mkdir -p ${DESTDIR}${PREFIX}/bin
-	@mv puri ${DESTDIR}${PREFIX}/bin
-	@echo Done installing executable files to ${DESTDIR}${PREFIX}/bin
+include config.mk
+
+OBJ := $(SRC:.c=.o)
+SRC := $(wildcard *.c)
+
+all: options ${NAME}
+options:
+	@echo ${NAME} build options:
+	@echo "CFLAGS = ${CFLAGS}"
+	@echo "LDLIBS = ${LDLIBS}"
+	@echo "CC     = ${CC}"
+${NAME}: ${OBJ}
+${OBJ}: ${SRC}
+install: all
+	@mkdir -p "${DESTDIR}${BINPREFIX}"
+	@mv ${NAME} "${DESTDIR}${BINPREFIX}"
+	@echo Done moving the binary to ${DESTDIR}${BINPREFIX}
 uninstall:
-	@rm -f ${DESTDIR}${PREFIX}/bin/puri
-	@echo Done removing executable files from ${DESTDIR}${PREFIX}/bin
+	@rm -f "${DESTDIR}${BINPREFIX}/${NAME}"
+	@echo Done removing the binary from ${DESTDIR}${BINPREFIX}
+clean:
+	@rm -f ${OBJ} ${NAME}
+	@echo Done cleaning the source
+
+.PHONY: all options install uninstall clean

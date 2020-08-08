@@ -4,16 +4,10 @@
 
 puri is a minimal TUI for searching and launching URLs from a given file.
 
-puri is a ~100 line POSIX shellscript.
-
-## Features
-
--  Vim bindings
--  Scrollable list
 
 ## Dependencies
 
--  grep, sed, sort, cut, head, seq, cat
+-  ncurses
 
 ## Installation
 
@@ -52,6 +46,7 @@ sudo make uninstall
 ## Patches
 
 -  **27/07/20**:- Added scrolling support
+-  **09/08/20**:- Rewrote the shellscript in C
 
 ## Similar Projects
 
