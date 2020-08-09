@@ -75,7 +75,14 @@ void geturls(char* path) {
 
    buffer = calloc(bytes, sizeof(char));
 
-   fread(buffer, sizeof(char), bytes, file);
+   while (fgets(line, sizeof(line), file) != NULL) {
+      if (strlen(line) - 1 > 1)
+         line[strlen(line) - 1] = '\0';
+      else
+         line[strlen(line) - 1] = ' ';
+      strcat(buffer, line);
+   }
+
 
    fclose(file);
 
