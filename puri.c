@@ -63,7 +63,7 @@ void drawui() {
 
 void geturls(char* path) {
    FILE* file = fopen(path, "r");
-   char *buffer, *cursor;
+   char *buffer, *cursor, *line;
    int bytes, len;
    regex_t regx;
    regmatch_t matches[1];
@@ -74,8 +74,16 @@ void geturls(char* path) {
    fseek(file, 0L, SEEK_SET);
 
    buffer = calloc(bytes, sizeof(char));
-   fread(buffer, sizeof(char), bytes, file);
+   line = calloc(width, sizeof(char));
+   while (fgets(line, width + 2, file) != NULL) {
+      if (strlen(line) - 1 > 1)
+         line[strlen(line) - 1] = '\0';
+      else
+         line[strlen(line) - 1] = ' ';
+      strcat(buffer, line);
+   }
    fclose(file);
+   free(line);
 
    regcomp(&regx, URL_PATTERN, REG_EXTENDED);
 
