@@ -53,10 +53,21 @@ void handleinput() {
    }
 }
 
-char* readfile(char* path) {
+void drawui() {
+   mvprintw(0, width / 2 - 10, HEADER);
+   mvprintw(height - 1, width / 2 - 15, FOOTER);
+   win = newwin(height - 2, width, 1, 0);
+   box(win, 0, 0);
+   refresh();
+}
+
+void geturls(char* path) {
    FILE* file = fopen(path, "r");
-   char *buffer, *line;
-   int bytes;
+   char *buffer, *cursor, *line;
+   int bytes, len;
+   regex_t regx;
+   regmatch_t matches[1];
+
    if (file == NULL) exit(EXIT_FAILURE);
    fseek(file, 0L, SEEK_END);
    bytes = ftell(file);
@@ -73,35 +84,20 @@ char* readfile(char* path) {
    }
    fclose(file);
    free(line);
-   return buffer;
-}
-
-char** geturls(char* path) {
-   char* cursor = readfile(path);
-   char** urlz;
-   int len;
-   regex_t regx;
-   regmatch_t matches[1];
 
    regcomp(&regx, URL_PATTERN, REG_EXTENDED);
+
+   cursor = buffer;
    while (regexec(&regx, cursor, 1, matches, 0) == 0) {
       ++count;
       len = matches[0].rm_eo - matches[0].rm_so;
-      urlz = realloc(urlz, sizeof(char*) * count);
-      urlz[count - 1] = calloc(len + 1, sizeof(char));
+      urls = realloc(urls, sizeof(char*) * count);
+      urls[count - 1] = calloc(len + 1, sizeof(char));
       strncpy(urls[count - 1], &cursor[matches[0].rm_so], len);
       cursor += matches[0].rm_eo;
    }
    regfree(&regx);
-   return urls;
-}
-
-void drawui() {
-   mvprintw(0, width / 2 - 10, HEADER);
-   mvprintw(height - 1, width / 2 - 15, FOOTER);
-   win = newwin(height - 2, width, 1, 0);
-   box(win, 0, 0);
-   refresh();
+   free(buffer);
 }
 
 void init() {
@@ -112,10 +108,11 @@ void init() {
    getmaxyx(stdscr, height, width);
 }
 
+
 int main(int argc, char* argv[]) {
    init();
+   geturls(argv[1]);
    drawui();
-   urls = geturls(argv[1]);
    drawitems();
    handleinput();
    cleanup();
