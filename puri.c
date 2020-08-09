@@ -9,13 +9,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-#define HEADER "puri: Puny URL Launcher"
-#define FOOTER "h:Quit   j:Down   k:Up   l:launch"
-#define URL_PATTERN "http[s]?://[^[:space:]]*"
-
-int count, mark, height, width;
-WINDOW* win;
-char** urls;
+#include "puri.h"
 
 void cleanup() {
    for (int i = 0; i < count; ++i) free(urls[i]);
@@ -25,7 +19,8 @@ void cleanup() {
 
 void drawitems() {
    for (int i = 0; i < count; ++i) {
-      if (i == mark) wattron(win, A_REVERSE); mvwprintw(win, i + 1, 1, urls[i]);
+      if (i == mark) wattron(win, A_REVERSE);
+      mvwprintw(win, i + 1, 1, urls[i]);
       wattroff(win, A_REVERSE);
    }
    wrefresh(win);
