@@ -8,13 +8,13 @@
 #define FOOTER "h:Quit   j:Down   k:Up   l:launch"
 #define URL_PATTERN "http[s]?://[[:alnum:][:punct:]]*"
 
-int count, mark;
+int count, mark, height, width;
 WINDOW* win;
+char* line;
 char** urls;
 
 void cleanup() {
-   for (int i = 0; i < count; ++i)
-      free(urls[i]);
+   for (int i = 0; i < count; ++i) free(urls[i]);
    free(urls);
    endwin();
 }
@@ -52,9 +52,6 @@ void handleinput() {
 }
 
 void drawui() {
-   int width, height;
-   getmaxyx(stdscr, height, width);
-
    mvprintw(0, width / 2 - 10, HEADER);
    mvprintw(height - 1, width / 2 - 15, FOOTER);
 
@@ -91,9 +88,9 @@ void geturls(char* path) {
       strncpy(urls[count - 1], &cursor[matches[0].rm_so], len);
       cursor += matches[0].rm_eo;
    }
-
    regfree(&regx);
    free(buffer);
+   free(line);
 }
 
 void init() {
@@ -101,6 +98,8 @@ void init() {
    cbreak();
    noecho();
    curs_set(0);
+   getmaxyx(stdscr, height, width);
+   line = calloc(width, sizeof(char));
 }
 
 int main(int argc, char* argv[]) {
