@@ -1,3 +1,8 @@
+/*
+ * puri
+ * minimal CLI URL launcher
+ */
+
 #include <ncurses.h>
 #include <regex.h>
 #include <stdio.h>
