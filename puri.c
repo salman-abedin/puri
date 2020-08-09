@@ -62,6 +62,7 @@ void geturls(char* path) {
    regex_t regx;
    regmatch_t matches[1];
 
+   if (file == NULL) exit(EXIT_FAILURE);
    fseek(file, 0L, SEEK_END);
    bytes = ftell(file);
    fseek(file, 0L, SEEK_SET);
