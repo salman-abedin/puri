@@ -61,6 +61,29 @@ void drawui() {
    refresh();
 }
 
+char* readfile(char* path) {
+   FILE* file = fopen(path, "r");
+   char *buffer, *line;
+   int bytes;
+   if (file == NULL) exit(EXIT_FAILURE);
+   fseek(file, 0L, SEEK_END);
+   bytes = ftell(file);
+   fseek(file, 0L, SEEK_SET);
+
+   buffer = calloc(bytes, sizeof(char));
+   line = calloc(width, sizeof(char));
+   while (fgets(line, width + 2, file) != NULL) {
+      if (strlen(line) - 1 > 1)
+         line[strlen(line) - 1] = '\0';
+      else
+         line[strlen(line) - 1] = ' ';
+      strcat(buffer, line);
+   }
+   fclose(file);
+   free(line);
+   return buffer;
+}
+
 void geturls(char* path) {
    FILE* file = fopen(path, "r");
    char *buffer, *cursor, *line;
