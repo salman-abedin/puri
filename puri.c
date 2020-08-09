@@ -74,7 +74,9 @@ void geturls(char* path) {
    fseek(file, 0L, SEEK_SET);
 
    buffer = calloc(bytes, sizeof(char));
+
    fread(buffer, sizeof(char), bytes, file);
+
    fclose(file);
 
    regcomp(&regx, URL_PATTERN, REG_EXTENDED);
