@@ -6,11 +6,10 @@
 
 #define HEADER "puri: Puny URL Launcher"
 #define FOOTER "h:Quit   j:Down   k:Up   l:launch"
-#define URL_PATTERN "http[s]?://[[:alnum:][:punct:]]*"
+#define URL_PATTERN "http[s]?://[^[:space:]]*"
 
 int count, mark, height, width;
 WINDOW* win;
-char* line;
 char** urls;
 
 void cleanup() {
@@ -21,10 +20,7 @@ void cleanup() {
 
 void drawitems() {
    for (int i = 0; i < count; ++i) {
-      if (i == mark) {
-         wattron(win, A_REVERSE);
-      }
-      mvwprintw(win, i + 1, 1, urls[i]);
+      if (i == mark) wattron(win, A_REVERSE); mvwprintw(win, i + 1, 1, urls[i]);
       wattroff(win, A_REVERSE);
    }
    wrefresh(win);
@@ -54,12 +50,9 @@ void handleinput() {
 void drawui() {
    mvprintw(0, width / 2 - 10, HEADER);
    mvprintw(height - 1, width / 2 - 15, FOOTER);
-
    win = newwin(height - 2, width, 1, 0);
    box(win, 0, 0);
    refresh();
-
-   drawitems();
 }
 
 void geturls(char* path) {
@@ -74,16 +67,7 @@ void geturls(char* path) {
    fseek(file, 0L, SEEK_SET);
 
    buffer = calloc(bytes, sizeof(char));
-
-   while (fgets(line, sizeof(line), file) != NULL) {
-      if (strlen(line) - 1 > 1)
-         line[strlen(line) - 1] = '\0';
-      else
-         line[strlen(line) - 1] = ' ';
-      strcat(buffer, line);
-   }
-
-
+   fread(buffer, sizeof(char), bytes, file);
    fclose(file);
 
    regcomp(&regx, URL_PATTERN, REG_EXTENDED);
@@ -99,7 +83,6 @@ void geturls(char* path) {
    }
    regfree(&regx);
    free(buffer);
-   free(line);
 }
 
 void init() {
@@ -108,13 +91,13 @@ void init() {
    noecho();
    curs_set(0);
    getmaxyx(stdscr, height, width);
-   line = calloc(width, sizeof(char));
 }
 
 int main(int argc, char* argv[]) {
    init();
    geturls(argv[1]);
    drawui();
+   drawitems();
    handleinput();
    cleanup();
    return 0;
