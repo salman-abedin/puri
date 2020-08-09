@@ -9,7 +9,13 @@
 #include <stdlib.h>
 #include <string.h>
 
-#include "puri.h"
+#define HEADER "puri: Puny URL Launcher"
+#define FOOTER "h:Quit   j:Down   k:Up   l:launch"
+#define URL_PATTERN "http[s]?://[^[:space:]]*"
+
+int count, mark, height, width;
+char** urls;
+WINDOW* win;
 
 void cleanup() {
    for (int i = 0; i < count; ++i) free(urls[i]);
