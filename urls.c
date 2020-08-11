@@ -28,18 +28,18 @@ char* _get_file_string(char* path) {
          continue;
    }
 
-   for (int i = 0; i < writei1; ++i) {
-      if (filestring[i] == ' ') {
-         ++spacecount;
-         continue;
-      }
-      if (spacecount == 1)
-         filestring[writei2++] = ' ';
-      else
-         filestring[writei2++] = filestring[i];
-      spacecount = 0;
-   }
-   filestring[writei2] = '\0';
+   /* for (int i = 0; i < writei1; ++i) { */
+   /*    if (filestring[i] == ' ') { */
+   /*       ++spacecount; */
+   /*       continue; */
+   /*    } */
+   /*    if (spacecount == 1) */
+   /*       filestring[writei2++] = ' '; */
+   /*    else */
+   /*       filestring[writei2++] = filestring[i]; */
+   /*    spacecount = 0; */
+   /* } */
+   /* filestring[writei2] = '\0'; */
 
    fclose(file);
    return filestring;
