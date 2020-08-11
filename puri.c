@@ -9,9 +9,10 @@
 #include <stdlib.h>
 #include <string.h>
 
+#include "urls.h"
+
 #define HEADER "puri: Puny URL Launcher"
 #define FOOTER "h:Quit   j:Down   k:Up   l:launch"
-#define URL_PATTERN "http[s]?://[^[:space:]]*"
 
 int count, mark, height, width;
 char** urls;
@@ -108,10 +109,11 @@ void init() {
    getmaxyx(stdscr, height, width);
 }
 
-
 int main(int argc, char* argv[]) {
+   urls_t urlss = get_urls(argv[1]);
+   urls = urlss.links;
+   count = urlss.count;
    init();
-   geturls(argv[1]);
    drawui();
    drawitems();
    handleinput();
