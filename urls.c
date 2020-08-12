@@ -7,8 +7,8 @@
 #include "urls.h"
 
 char* _get_file_string(char* path) {
-   int writei;
    char letter;
+   int writei;
    long size;
    char* filestring;
    FILE* file;
