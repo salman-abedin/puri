@@ -22,15 +22,13 @@ void drawitems() {
       mvwprintw(win, i + 1, 1, items[i]);
       wattroff(win, A_REVERSE);
    }
-   wrefresh(win);
 }
 
 void handleinput() {
    int key;
    char* cmd;
    char cmdhead[] = "$BROWSER";
-   while (1) {
-      key = getch();
+   while ((key = wgetch(win)) != 'h') {
       if (key == 'j' && mark < count - 1) {
          ++mark;
          drawitems();
@@ -41,8 +39,7 @@ void handleinput() {
          cmd = calloc(strlen(cmdhead) + strlen(items[mark]) + 2, sizeof(char));
          sprintf(cmd, "%s %s", cmdhead, items[mark]);
          system(cmd);
-      } else if (key == 'h')
-         break;
+      }
    }
 }
 
