@@ -27,11 +27,6 @@ char* _get_file_string(char* path) {
    }
    filestring[writei] = '\0';
    fclose(file);
-
-   file = fopen("/home/salman/log", "w");
-   fprintf(file, "%s", filestring);
-   fclose(file);
-
    return filestring;
 }
 
