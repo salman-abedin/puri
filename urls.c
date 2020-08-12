@@ -4,16 +4,17 @@
 #include <stdlib.h>
 #include <string.h>
 
+
 #include "urls.h"
 
 char* _get_file_string(char* path) {
-   int writei1, writei2, spacecount;
+   int writei1, writei2, spacecount, newlinecount;
    char letter;
    long size;
    char* filestring;
    FILE* file;
 
-   writei1 = writei2 = spacecount = 0;
+   writei1 = writei2 = spacecount = newlinecount = 0;
    file = fopen(path, "r");
 
    fseek(file, 0L, SEEK_END);
@@ -24,8 +25,15 @@ char* _get_file_string(char* path) {
    while ((letter = fgetc(file)) != EOF) {
       if (isprint(letter) != 0 && letter != '|')
          filestring[writei1++] = letter;
-      else
-         continue;
+      else if (letter == '\n') {
+         if (newlinecount > 1) {
+            filestring[writei1++] = ' ';
+            newlinecount = 0;
+         } else {
+            ++newlinecount;
+            continue;
+         }
+      }
    }
 
    /* for (int i = 0; i < writei1; ++i) { */
