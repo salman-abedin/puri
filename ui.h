@@ -4,7 +4,7 @@
 #define HEADER "puri: Puny URL Launcher"
 #define FOOTER "h:Quit   j:Down   k:Up   l:launch"
 
-void init(char** in_items, int in_count);
+void init(int in_count, char** in_items);
 void drawui();
 void drawitems();
 void handleinput();

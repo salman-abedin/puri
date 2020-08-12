@@ -20,7 +20,7 @@ git clone https://github.com/salman-abedin/puri.git && cd puri && sudo make inst
 #### Tmux ( Press prefix, 'u' )
 
 ```tmux
-bind u run 'tmux capture-pane -p > /tmp/tb' \; \
+bind u run 'tmux capture-pane -N -p > /tmp/tb' \; \
   split-window 'puri /tmp/tb && rm -f /tmp/tb'
 ```
 

@@ -51,7 +51,7 @@ void drawui() {
    refresh();
 }
 
-void init(char** in_items, int in_count) {
+void init(int in_count, char** in_items) {
    items = in_items;
    count = in_count;
    initscr();
