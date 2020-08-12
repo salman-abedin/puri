@@ -7,13 +7,13 @@
 #include "urls.h"
 
 char* _get_file_string(char* path) {
-   int writei, spacecount, newlinecount;
+   int writei;
    char letter;
    long size;
    char* filestring;
    FILE* file;
 
-   writei = spacecount = newlinecount = 0;
+   writei = 0;
    file = fopen(path, "r");
 
    fseek(file, 0L, SEEK_END);
@@ -22,7 +22,7 @@ char* _get_file_string(char* path) {
 
    fseek(file, 0L, SEEK_SET);
    while ((letter = fgetc(file)) != EOF) {
-      if (letter == '|' || !isprint(letter) ) continue;
+      if (letter == '|' || !isprint(letter)) continue;
       filestring[writei++] = letter;
    }
    filestring[writei] = '\0';
