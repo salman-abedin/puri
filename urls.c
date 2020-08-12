@@ -14,8 +14,8 @@ char* _get_file_string(char* path) {
    FILE* file;
 
    writei = 0;
-   file = fopen(path, "r");
 
+   file = fopen(path, "r");
    fseek(file, 0L, SEEK_END);
    size = ftell(file);
    filestring = malloc(size);
