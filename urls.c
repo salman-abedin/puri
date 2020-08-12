@@ -4,17 +4,16 @@
 #include <stdlib.h>
 #include <string.h>
 
-
 #include "urls.h"
 
 char* _get_file_string(char* path) {
-   int writei1, writei2, spacecount, newlinecount;
+   int writei, spacecount, newlinecount;
    char letter;
    long size;
    char* filestring;
    FILE* file;
 
-   writei1 = writei2 = spacecount = newlinecount = 0;
+   writei = spacecount = newlinecount = 0;
    file = fopen(path, "r");
 
    fseek(file, 0L, SEEK_END);
@@ -23,32 +22,32 @@ char* _get_file_string(char* path) {
 
    fseek(file, 0L, SEEK_SET);
    while ((letter = fgetc(file)) != EOF) {
-      if (isprint(letter) != 0 && letter != '|')
-         filestring[writei1++] = letter;
+      if (letter == '|')
+         continue;
       else if (letter == '\n') {
          if (newlinecount > 1) {
-            filestring[writei1++] = ' ';
+            filestring[writei++] = ' ';
             newlinecount = 0;
          } else {
             ++newlinecount;
             continue;
          }
       }
+
+      else if (letter == ' ') {
+         ++spacecount;
+         if (spacecount > 1) continue;
+      }
+
+      else if (isalnum(letter) || ispunct(letter)) {
+         if (spacecount == 1) {
+            filestring[writei] = ' ';
+            spacecount = 0;
+         }
+         filestring[writei++] = letter;
+      }
    }
-
-   /* for (int i = 0; i < writei1; ++i) { */
-   /*    if (filestring[i] == ' ') { */
-   /*       ++spacecount; */
-   /*       continue; */
-   /*    } */
-   /*    if (spacecount == 1) */
-   /*       filestring[writei2++] = ' '; */
-   /*    else */
-   /*       filestring[writei2++] = filestring[i]; */
-   /*    spacecount = 0; */
-   /* } */
-   /* filestring[writei2] = '\0'; */
-
+   filestring[writei] = '\0';
    fclose(file);
    return filestring;
 }
