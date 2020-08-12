@@ -6,7 +6,7 @@
 #include "ui.h"
 
 WINDOW* win;
-int mark, height, width;
+int mark, height, width, wwidth;
 int count;
 char** items;
 
@@ -19,7 +19,7 @@ void cleanup() {
 void drawitems() {
    for (int i = 0; i < count; ++i) {
       if (i == mark) wattron(win, A_REVERSE);
-      mvwprintw(win, i + 1, 1, items[i]);
+      mvwaddnstr(win, i + 1, 1, items[i], wwidth - 2);
       wattroff(win, A_REVERSE);
    }
 }
@@ -44,9 +44,9 @@ void handleinput() {
 }
 
 void drawui() {
-   mvprintw(0, width / 2 - 10, HEADER);
-   mvprintw(height - 1, width / 2 - 15, FOOTER);
-   win = newwin(height - 2, width, 1, 0);
+   mvprintw(0, (width - strlen(HEADER)) / 2, HEADER);
+   mvprintw(height - 1, (width - strlen(FOOTER)) / 2, FOOTER);
+   win = newwin(height - 2, wwidth, 1, (width - wwidth) / 2);
    box(win, 0, 0);
    refresh();
 }
@@ -59,4 +59,5 @@ void init(char** in_items, int in_count) {
    noecho();
    curs_set(0);
    getmaxyx(stdscr, height, width);
+   wwidth = width / 1.5;
 }
