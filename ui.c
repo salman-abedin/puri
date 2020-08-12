@@ -5,15 +5,27 @@
 
 #include "ui.h"
 
-WINDOW* win;
-int mark, height, width, wwidth;
-int count;
+int mark, height, width, wwidth, count;
 char** items;
+WINDOW* win;
 
-void cleanup() {
-   for (int i = 0; i < count; ++i) free(items[i]);
-   free(items);
-   endwin();
+void init(int in_count, char** in_items) {
+   items = in_items;
+   count = in_count;
+   initscr();
+   cbreak();
+   noecho();
+   curs_set(0);
+   getmaxyx(stdscr, height, width);
+   wwidth = width / 1.5;
+}
+
+void drawui() {
+   mvprintw(0, (width - strlen(HEADER)) / 2, HEADER);
+   mvprintw(height - 1, (width - strlen(FOOTER)) / 2, FOOTER);
+   win = newwin(height - 2, wwidth, 1, (width - wwidth) / 2);
+   box(win, 0, 0);
+   refresh();
 }
 
 void drawitems() {
@@ -27,7 +39,7 @@ void drawitems() {
 void handleinput() {
    int key;
    char* cmd;
-   char cmdhead[] = "$BROWSER";
+   char* cmdhead = "$BROWSER";
    while ((key = wgetch(win)) != 'h') {
       if (key == 'j' && mark < count - 1) {
          ++mark;
@@ -43,21 +55,8 @@ void handleinput() {
    }
 }
 
-void drawui() {
-   mvprintw(0, (width - strlen(HEADER)) / 2, HEADER);
-   mvprintw(height - 1, (width - strlen(FOOTER)) / 2, FOOTER);
-   win = newwin(height - 2, wwidth, 1, (width - wwidth) / 2);
-   box(win, 0, 0);
-   refresh();
-}
-
-void init(int in_count, char** in_items) {
-   items = in_items;
-   count = in_count;
-   initscr();
-   cbreak();
-   noecho();
-   curs_set(0);
-   getmaxyx(stdscr, height, width);
-   wwidth = width / 1.5;
+void cleanup() {
+   for (int i = 0; i < count; ++i) free(items[i]);
+   free(items);
+   endwin();
 }

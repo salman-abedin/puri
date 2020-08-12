@@ -22,33 +22,16 @@ char* _get_file_string(char* path) {
 
    fseek(file, 0L, SEEK_SET);
    while ((letter = fgetc(file)) != EOF) {
-      if (letter == '|')
-         continue;
-      else if (letter == '\n') {
-         if (newlinecount > 1) {
-            filestring[writei++] = ' ';
-            newlinecount = 0;
-         } else {
-            ++newlinecount;
-            continue;
-         }
-      }
-
-      else if (letter == ' ') {
-         ++spacecount;
-         if (spacecount > 1) continue;
-      }
-
-      else if (isalnum(letter) || ispunct(letter)) {
-         if (spacecount == 1) {
-            filestring[writei] = ' ';
-            spacecount = 0;
-         }
-         filestring[writei++] = letter;
-      }
+      if (letter == '|' || !isprint(letter) ) continue;
+      filestring[writei++] = letter;
    }
    filestring[writei] = '\0';
    fclose(file);
+
+   file = fopen("/home/salman/log", "w");
+   fprintf(file, "%s", filestring);
+   fclose(file);
+
    return filestring;
 }
 
