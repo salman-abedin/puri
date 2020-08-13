@@ -5,7 +5,7 @@
 
 #include "ui.h"
 
-int mark, height, width, wwidth, count;
+int mark, height, width, wwidth, count, i;
 char** items;
 WINDOW* win;
 
@@ -29,7 +29,7 @@ void drawui() {
 }
 
 void drawitems() {
-   for (int i = 0; i < count; ++i) {
+   for (i = 0; i < count; ++i) {
       if (i == mark) wattron(win, A_REVERSE);
       mvwaddnstr(win, i + 1, 1, items[i], wwidth - 2);
       wattroff(win, A_REVERSE);
@@ -56,7 +56,7 @@ void handleinput() {
 }
 
 void cleanup() {
-   for (int i = 0; i < count; ++i) free(items[i]);
+   for (i = 0; i < count; ++i) free(items[i]);
    free(items);
    endwin();
 }
