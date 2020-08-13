@@ -5,7 +5,7 @@
 
 #include "ui.h"
 
-int mark, start, end, limit, height, width, wwidth, count, i;
+int mark, start, end, limit, height, width, wwidth, count, i, j;
 char** items;
 WINDOW* win;
 
@@ -33,7 +33,8 @@ void drawui() {
 void drawitems() {
    for (i = start; i < end; ++i) {
       if (i == mark) wattron(win, A_REVERSE);
-      mvwaddnstr(win, i + 1, 1, items[i], wwidth - 2);
+      /* mvwaddnstr(win, i + 1, 1, items[i], wwidth - 2); */
+      for (j = 0; j < wwidth - 2; ++j) waddch(win, items[i][j]);
       wattroff(win, A_REVERSE);
    }
 }
@@ -49,7 +50,6 @@ void handleinput() {
          /* ++start; */
 
          if (mark == limit - 1 && end < count) {
-            system("ns scroll");
             ++end;
             ++start;
          } else {
