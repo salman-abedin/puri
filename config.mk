@@ -1,6 +1,6 @@
 .POSIX:
 
-NAME    = puri
+NAME    = src/puri
 VERSION = 3.0
 
 CC     = cc
