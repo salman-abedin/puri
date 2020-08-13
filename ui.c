@@ -5,7 +5,7 @@
 
 #include "ui.h"
 
-int mark, height, width, wwidth, count, i;
+int mark, start, end, limit, height, width, wwidth, count, i;
 char** items;
 WINDOW* win;
 
@@ -18,6 +18,8 @@ void init(int in_count, char** in_items) {
    curs_set(0);
    getmaxyx(stdscr, height, width);
    wwidth = width / 1.5;
+   limit = height - 4;
+   end = count > limit ? limit : count;
 }
 
 void drawui() {
@@ -29,7 +31,7 @@ void drawui() {
 }
 
 void drawitems() {
-   for (i = 0; i < count; ++i) {
+   for (i = start; i < end; ++i) {
       if (i == mark) wattron(win, A_REVERSE);
       mvwaddnstr(win, i + 1, 1, items[i], wwidth - 2);
       wattroff(win, A_REVERSE);
@@ -41,11 +43,27 @@ void handleinput() {
    char* cmd;
    char* cmdhead = "$BROWSER";
    while ((key = wgetch(win)) != 'h') {
-      if (key == 'j' && mark < count - 1) {
-         ++mark;
+      if (key == 'j') {
+         /* ++mark; */
+         /* ++end; */
+         /* ++start; */
+
+         if (mark == limit - 1 && end < count) {
+            system("ns scroll");
+            ++end;
+            ++start;
+         } else {
+            ++mark;
+         }
+
          drawitems();
       } else if (key == 'k' && mark > 0) {
-         --mark;
+         if (mark == 0 && start > 0) {
+            --end;
+            --start;
+         } else {
+            --mark;
+         }
          drawitems();
       } else if (key == 'l') {
          cmd = calloc(strlen(cmdhead) + strlen(items[mark]) + 2, (sizeof *cmd));

@@ -31,30 +31,44 @@ char* _get_file_string(char* path) {
 }
 
 urls_t get_urls(char* path) {
-   int match_len, url_count;
-   char* cursor;
    urls_t urls;
-   regex_t regx;
-   regmatch_t matches[1];
-
-   char* filestring = _get_file_string(path);
-
-   regcomp(&regx, URL_PATTERN, REG_EXTENDED);
-   cursor = filestring;
-   while (regexec(&regx, cursor, 1, matches, 0) == 0) {
-      ++url_count;
-      match_len = matches[0].rm_eo - matches[0].rm_so;
-      if (url_count == 1)
-         urls.links = calloc(match_len + 1, (sizeof *urls.links));
-      else
-         urls.links = realloc(urls.links, (sizeof *urls.links) * url_count);
-      urls.links[url_count - 1] = calloc(match_len + 1, (sizeof **urls.links));
-      strncpy(urls.links[url_count - 1], &cursor[matches[0].rm_so], match_len);
-
-      cursor += matches[0].rm_eo;
+   urls.count = 15;
+   char* cmd;
+   urls.links = calloc(urls.count, (sizeof *urls.links));
+   for (int i = 0; i < urls.count; ++i) {
+      cmd = calloc(5, (sizeof *cmd));
+      sprintf(cmd, "%d", i);
+      urls.links[i] = cmd;
    }
-   urls.count = url_count;
-
-   regfree(&regx);
    return urls;
+
+   /* int match_len, url_count; */
+   /* char* cursor; */
+   /* urls_t urls; */
+   /* regex_t regx; */
+   /* regmatch_t matches[1]; */
+
+   /* char* filestring = _get_file_string(path); */
+
+   /* regcomp(&regx, URL_PATTERN, REG_EXTENDED); */
+   /* cursor = filestring; */
+   /* while (regexec(&regx, cursor, 1, matches, 0) == 0) { */
+   /*    ++url_count; */
+   /*    match_len = matches[0].rm_eo - matches[0].rm_so; */
+   /*    if (url_count == 1) */
+   /*       urls.links = calloc(match_len + 1, (sizeof *urls.links)); */
+   /*    else */
+   /*       urls.links = realloc(urls.links, (sizeof *urls.links) * url_count);
+    */
+   /*    urls.links[url_count - 1] = calloc(match_len + 1, (sizeof
+    * **urls.links)); */
+   /*    strncpy(urls.links[url_count - 1], &cursor[matches[0].rm_so],
+    * match_len); */
+
+   /*    cursor += matches[0].rm_eo; */
+   /* } */
+   /* urls.count = url_count; */
+
+   /* regfree(&regx); */
+   /* return urls; */
 }
