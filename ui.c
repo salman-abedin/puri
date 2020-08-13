@@ -45,11 +45,14 @@ void handleinput() {
    char* cmdhead = "$BROWSER";
    while ((key = wgetch(win)) != 'h') {
       if (key == 'j') {
-         if (mark < wheight - 3 && mark < end) {
+         if (mark < wheight - 3 && mark < end - 1) {
             ++mark;
-         } else {
+         } else if (end < count) {
             ++end;
             ++start;
+         } else {
+            end = count > wheight - 2 ? wheight - 2 : count;
+            start = mark = 0;
          }
          drawitems();
       } else if (key == 'k') {
