@@ -45,7 +45,7 @@ urls_t get_urls(char* path) {
       ++url_count;
       match_len = matches[0].rm_eo - matches[0].rm_so;
       if (url_count == 1)
-         urls.links = calloc(match_len + 1, sizeof(char*));
+         urls.links = calloc(match_len + 1, sizeof(urls.links));
       else
          urls.links = realloc(urls.links, sizeof(char*) * url_count);
       urls.links[url_count - 1] = calloc(match_len + 1, sizeof(char));
