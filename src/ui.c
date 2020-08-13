@@ -31,7 +31,7 @@ void drawitems() {
    werase(win);
    box(win, 0, 0);
    for (i = 1, j = start; j < end; ++i, ++j) {
-      if (i == mark) wattron(win, A_REVERSE);
+      if (i - 1 == mark) wattron(win, A_REVERSE);
       mvwaddnstr(win, i, 1, items[j], wwidth - 2);
       wattroff(win, A_REVERSE);
    }
