@@ -5,7 +5,7 @@
 
 #include "ui.h"
 
-int mark, start, end, limit, height, width, wwidth, count, i, j;
+int mark, start, end, width, height, wwidth, wheight, count, i, j;
 char** items;
 WINDOW* win;
 
@@ -18,25 +18,25 @@ void init(int in_count, char** in_items) {
    curs_set(0);
    getmaxyx(stdscr, height, width);
    wwidth = width / 1.5;
-   limit = height - 4;
-   end = count > limit ? limit : count;
+   wheight = height - 2;
+   end = count > wheight - 2 ? wheight - 2 : count;
 }
 
 void drawui() {
    mvprintw(0, (width - strlen(HEADER)) / 2, HEADER);
    mvprintw(height - 1, (width - strlen(FOOTER)) / 2, FOOTER);
-   win = newwin(height - 2, wwidth, 1, (width - wwidth) / 2);
-   box(win, 0, 0);
-   refresh();
+   win = newwin(wheight, wwidth, 1, (width - wwidth) / 2);
 }
 
 void drawitems() {
-   for (i = start; i < end; ++i) {
+   werase(win);
+   box(win, 0, 0);
+   for (i = 0, j = start; j < end; ++i, ++j) {
       if (i == mark) wattron(win, A_REVERSE);
-      /* mvwaddnstr(win, i + 1, 1, items[i], wwidth - 2); */
-      for (j = 0; j < wwidth - 2; ++j) waddch(win, items[i][j]);
+      mvwaddnstr(win, i + 1, 1, items[j], wwidth - 2);
       wattroff(win, A_REVERSE);
    }
+   refresh();
 }
 
 void handleinput() {
@@ -45,24 +45,30 @@ void handleinput() {
    char* cmdhead = "$BROWSER";
    while ((key = wgetch(win)) != 'h') {
       if (key == 'j') {
-         /* ++mark; */
-         /* ++end; */
-         /* ++start; */
-
-         if (mark == limit - 1 && end < count) {
+         if (mark == wheight - 3 && end < count) {
             ++end;
             ++start;
          } else {
-            ++mark;
+            if (mark < wheight - 3) {
+               ++mark;
+            } else {
+               mark = start = 0;
+               end = count > wheight - 2 ? wheight - 2 : count;
+            }
          }
-
          drawitems();
-      } else if (key == 'k' && mark > 0) {
+      } else if (key == 'k') {
          if (mark == 0 && start > 0) {
             --end;
             --start;
          } else {
-            --mark;
+            if (mark > 0) {
+               --mark;
+            } else {
+                mark = mark;
+               /* mark = end = count - 1; */
+               /* start = count > wheight - 2 ? wheight - 2 : 0; */
+            }
          }
          drawitems();
       } else if (key == 'l') {
