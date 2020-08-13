@@ -2,6 +2,7 @@ include config.mk
 
 OBJ = $(SRC:.c=.o)
 SRC = $(wildcard *.c)
+# SRC     = $(shell find $(DIR_S) -name '*.c')
 
 all: $(NAME)
 $(NAME): $(OBJ)
