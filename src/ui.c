@@ -1,5 +1,4 @@
 #include <ncurses.h>
-#include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 
@@ -31,9 +30,9 @@ void drawui() {
 void drawitems() {
    werase(win);
    box(win, 0, 0);
-   for (i = 0, j = start; j < end; ++i, ++j) {
+   for (i = 1, j = start; j < end; ++i, ++j) {
       if (i == mark) wattron(win, A_REVERSE);
-      mvwaddnstr(win, i + 1, 1, items[j], wwidth - 2);
+      mvwaddnstr(win, i, 1, items[j], wwidth - 2);
       wattroff(win, A_REVERSE);
    }
    refresh();
@@ -79,6 +78,7 @@ void handleinput() {
 
 void cleanup() {
    for (i = 0; i < count; ++i) free(items[i]);
+   delwin(win);
    free(items);
    endwin();
 }
