@@ -48,7 +48,7 @@ void handleinput() {
          --mark;
          drawitems();
       } else if (key == 'l') {
-         cmd = calloc(strlen(cmdhead) + strlen(items[mark]) + 2, sizeof(char));
+         cmd = calloc(strlen(cmdhead) + strlen(items[mark]) + 2, (sizeof *cmd));
          sprintf(cmd, "%s %s", cmdhead, items[mark]);
          system(cmd);
       }
