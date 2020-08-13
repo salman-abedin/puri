@@ -1,5 +1,5 @@
-#ifndef _URLS_H_
-#define _URLS_H_
+#ifndef URLS_H
+#define URLS_H
 
 #define URL_PATTERN "http[s]?://[[:alnum:]./_?=%:+&#-]*"
 
