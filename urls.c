@@ -31,17 +31,6 @@ char* _get_file_string(char* path) {
 }
 
 urls_t get_urls(char* path) {
-   /* urls_t urls; */
-   /* urls.count = 15; */
-   /* char* cmd; */
-   /* urls.links = calloc(urls.count, (sizeof *urls.links)); */
-   /* for (int i = 0; i < urls.count; ++i) { */
-   /*    cmd = calloc(5, (sizeof *cmd)); */
-   /*    sprintf(cmd, "%d", i); */
-   /*    urls.links[i] = cmd; */
-   /* } */
-   /* return urls; */
-
    int match_len, url_count;
    char* cursor;
    urls_t urls;
