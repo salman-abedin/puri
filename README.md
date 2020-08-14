@@ -5,7 +5,7 @@
 puri is a minimal TUI for searching and launching URLs from a given file.  
 puri is the successor to [puri.sh](https://github.com/salman-abedin/puri.sh)
 
-## Dependencies
+## Libraries
 
 -  ncurses
 -  ctype
