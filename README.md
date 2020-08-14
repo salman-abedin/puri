@@ -8,6 +8,7 @@ puri is the successor to [puri.sh](https://github.com/salman-abedin/puri.sh)
 ## Dependencies
 
 -  ncurses
+-  ctype
 
 ## Installation
 
