@@ -40,8 +40,7 @@ void drawitems() {
 
 void handleinput() {
    int key;
-   char* cmd;
-   char* cmdhead = "$BROWSER";
+   char cmd[1024];
    while ((key = wgetch(win)) != 'h') {
       if (key == 'j') {
          if (mark < wheight - 3 && mark < end - 1) {
@@ -69,8 +68,7 @@ void handleinput() {
          }
          drawitems();
       } else if (key == 'l') {
-         cmd = calloc(strlen(cmdhead) + strlen(items[mark]) + 2, (sizeof *cmd));
-         sprintf(cmd, "%s %s", cmdhead, items[mark]);
+         sprintf(cmd, "$BROWSER %s > /dev/null 2>&1", items[mark]);
          system(cmd);
       }
    }
