@@ -6,8 +6,8 @@
 typedef struct {
    char** links;
    int count;
-} urls_t;
+} Urls;
 
-urls_t get_urls(char* path);
+Urls get_urls(char* path);
 
 #endif

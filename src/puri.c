@@ -7,7 +7,7 @@
 #include "urls.h"
 
 int main(int argc, char** argv) {
-   urls_t urls = get_urls(argv[1]);
+   Urls urls = get_urls(argv[1]);
    init(urls.count, urls.links);
    drawui();
    drawitems();

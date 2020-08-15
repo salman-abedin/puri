@@ -30,10 +30,10 @@ char* _get_file_string(char* path) {
    return filestring;
 }
 
-urls_t get_urls(char* path) {
+Urls get_urls(char* path) {
    int match_len, url_count;
    char* cursor;
-   urls_t urls;
+   Urls urls;
    regex_t regx;
    regmatch_t matches[1];
 
