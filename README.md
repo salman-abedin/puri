@@ -9,6 +9,7 @@ puri is the successor to [puri.sh](https://github.com/salman-abedin/puri.sh)
 
 -  ncurses
 -  ctype
+-  regx
 
 ## Installation
 
