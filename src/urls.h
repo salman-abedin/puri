@@ -1,7 +1,7 @@
 #ifndef URLS_H
 #define URLS_H
 
-#define URL_PATTERN "http[s]?://[[:alnum:]./_?=%:+&#-]*"
+#define URL_PATTERN "http[s]?://[-[:alnum:]./_?=%:+&#]*"
 
 typedef struct {
    char** links;
