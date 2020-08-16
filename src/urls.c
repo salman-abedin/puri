@@ -22,9 +22,12 @@ char* _get_file_string(char* path) {
 
    fseek(file, 0L, SEEK_SET);
    while ((letter = fgetc(file)) != EOF) {
-      if (letter == '\n') filestring[writei++] = ' ';
-      else if (letter == '|' || !isprint(letter)) continue;
-      else filestring[writei++] = letter;
+      if (letter == '\n')
+         filestring[writei++] = ' ';
+      else if (letter == '|' || !isprint(letter))
+         continue;
+      else
+         filestring[writei++] = letter;
    }
    filestring[writei] = '\0';
    fclose(file);
@@ -38,6 +41,7 @@ Urls get_urls(char* path) {
    regex_t regx;
    regmatch_t matches[1];
 
+   url_count = 0;
    char* filestring = _get_file_string(path);
 
    regcomp(&regx, URL_PATTERN, REG_EXTENDED);
@@ -50,10 +54,8 @@ Urls get_urls(char* path) {
       else
          urls.links = realloc(urls.links, (sizeof *urls.links) * url_count);
 
-          urls.links[url_count - 1] = calloc(match_len + 1, (sizeof
-       **urls.links));
-          strncpy(urls.links[url_count - 1], &cursor[matches[0].rm_so],
-       match_len); 
+      urls.links[url_count - 1] = calloc(match_len + 1, (sizeof **urls.links));
+      strncpy(urls.links[url_count - 1], &cursor[matches[0].rm_so], match_len);
 
       cursor += matches[0].rm_eo;
    }
