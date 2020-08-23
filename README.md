@@ -42,6 +42,12 @@ macro index,pager o "<pipe-message>tee /tmp/muttb<enter><shell-escape>puri /tmp/
 puri [FILE...]
 ```
 
+## Update
+
+```sh
+git pull --no-rebase && sudo make install
+```
+
 ## Uninstallation
 
 ```sh
