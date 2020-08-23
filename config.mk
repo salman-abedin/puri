@@ -7,6 +7,8 @@ OBJ = $(SRC:.c=.o)
 CC     = cc
 CFLAGS = -std=c11 -D_POSIX_C_SOURCE=200809L -Wall -Wextra -pedantic -O2
 
-NAME    = src/puri
+NAME    = puri
 VERSION = 3.0
 LDLIBS = -s -lncurses
+
+BIN = src/$(NAME)
