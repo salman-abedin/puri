@@ -13,5 +13,6 @@ int main(int argc, char** argv) {
    drawitems();
    handleinput();
    cleanup();
+   (void)argc;
    return 0;
 }
