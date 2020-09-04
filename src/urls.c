@@ -23,10 +23,10 @@ char* _get_file_string(char* path) {
    fseek(file, 0L, SEEK_SET);
    while ((letter = fgetc(file)) != EOF) {
       if (letter == '|' || !isprint(letter)) continue;
-      /* if (letter == '\n') */
-      /* filestring[writei++] = ' '; */
-      /* else */
-      filestring[writei++] = letter;
+      if (letter == '\n')
+         filestring[writei++] = ' ';
+      else
+         filestring[writei++] = letter;
    }
    filestring[writei] = '\0';
    fclose(file);
