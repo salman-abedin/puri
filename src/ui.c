@@ -1,8 +1,8 @@
+#include "ui.h"
+
 #include <ncurses.h>
 #include <stdlib.h>
 #include <string.h>
-
-#include "ui.h"
 
 int mark, start, end, width, height, wwidth, wheight, count, i, j;
 char** items;
@@ -30,7 +30,8 @@ void drawui() {
 void drawitems() {
    werase(win);
    box(win, 0, 0);
-   for (i = 1, j = start; j < end; ++i, ++j) {
+   /* for (i = 1, j = start; j < end; ++i, ++j) { */
+   for (i = 1, j = end - 1; j >= start; ++i, --j) {
       if (i - 1 == mark) wattron(win, A_REVERSE);
       mvwaddnstr(win, i, 1, items[j], wwidth - 2);
       wattroff(win, A_REVERSE);
