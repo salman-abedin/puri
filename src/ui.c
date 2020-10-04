@@ -69,7 +69,7 @@ void handleinput() {
          }
          drawitems();
       } else if (key == 'l') {
-         sprintf(cmd, "$BROWSER %s > /dev/null 2>&1", items[mark]);
+         sprintf(cmd, "setsid -f $BROWSER %s > /dev/null 2>&1 &", items[mark]);
          system(cmd);
       }
    }
