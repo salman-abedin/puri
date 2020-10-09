@@ -1,10 +1,10 @@
+#include "urls.h"
+
 #include <ctype.h>
 #include <regex.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-
-#include "urls.h"
 
 char* _get_file_string(char* path) {
    char letter;
@@ -35,7 +35,7 @@ char* _get_file_string(char* path) {
 
 Urls get_urls(char* path) {
    int match_len, url_count;
-   char* cursor;
+   char *cursor, *temp;
    Urls urls;
    regex_t regx;
    regmatch_t matches[1];
@@ -59,6 +59,14 @@ Urls get_urls(char* path) {
       cursor += matches[0].rm_eo;
    }
    urls.count = url_count;
+
+   // reverse the list
+   for (int start = 0, end = urls.count - 1; start < urls.count / 2;
+        ++start, --end) {
+      temp = urls.links[start];
+      urls.links[start] = urls.links[end];
+      urls.links[end] = temp;
+   }
 
    regfree(&regx);
    return urls;
