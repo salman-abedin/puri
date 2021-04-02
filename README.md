@@ -1,9 +1,9 @@
-![](preview.gif)
-
 # puri: Minimal CLI URL launcher
 
 puri is a minimal TUI for searching and launching URLs from a given file.  
 puri is the successor to [puri.sh](https://github.com/salman-abedin/puri.sh)
+
+![](https://gitlab.com/salman-abedin/assets/-/raw/master/puri.gif)
 
 ## Features
 
